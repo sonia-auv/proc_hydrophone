@@ -35,7 +35,7 @@ namespace proc_hydrophone {
     ProcHydrophoneNode::ProcHydrophoneNode(const ros::NodeHandlePtr &nh)
         : nh_(nh)
     {
-
+        odomSubscriber = nh_->subscribe("/proc_navigation/odom", 100, &ProcHydrophoneNode::OdomCallback, this);
     }
 
     //------------------------------------------------------------------------------
@@ -53,6 +53,13 @@ namespace proc_hydrophone {
         ros::spinOnce();
         r.sleep();
       }
+    }
+
+    void ProcHydrophoneNode::OdomCallback(const nav_msgs::OdometryConstPtr &odom) {
+
+        // Simply save the last odom msg
+        this->lastOdom = odom;
+
     }
 
 }  // namespace proc_hydrophone

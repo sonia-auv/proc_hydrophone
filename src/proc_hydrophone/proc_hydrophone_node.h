@@ -27,7 +27,7 @@
 #define PROC_HYDROPHONE_PROC_HYDROPHONE_NODE_H_
 
 #include <ros/node_handle.h>
-
+#include <nav_msgs/Odometry.h>
 namespace proc_hydrophone {
 
 class ProcHydrophoneNode {
@@ -51,6 +51,12 @@ private:
 
     ros::NodeHandlePtr nh_;
 
+
+    ros::Subscriber odomSubscriber;
+
+    void OdomCallback(const nav_msgs::OdometryConstPtr &odom);
+
+    nav_msgs::OdometryConstPtr lastOdom;
 
 };
 
