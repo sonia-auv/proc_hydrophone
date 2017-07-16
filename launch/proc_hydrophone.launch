@@ -1,0 +1,6 @@
+<launch>
+	<node name="proc_hydrophone"
+	    pkg="proc_hydrophone"
+	    type="proc_hydrophone_node"
+	    output="screen" />
+</launch>
