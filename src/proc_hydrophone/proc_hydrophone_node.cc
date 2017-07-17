@@ -33,10 +33,12 @@ namespace proc_hydrophone {
     //------------------------------------------------------------------------------
     //
     ProcHydrophoneNode::ProcHydrophoneNode(const ros::NodeHandlePtr &nh)
-        : nh_(nh)
+        : nh_(nh),
+          ping40kHzHandler(PingHandler(40))
     {
         odomSubscriber = nh_->subscribe("/proc_navigation/odom", 100, &ProcHydrophoneNode::OdomCallback, this);
         providerHydrophoneSubscriber = nh_->subscribe("/provider_hydrophone/ping", 100, &ProcHydrophoneNode::PingCallback, this);
+
     }
 
     //------------------------------------------------------------------------------
@@ -63,7 +65,12 @@ namespace proc_hydrophone {
 
     void ProcHydrophoneNode::PingCallback(const provider_hydrophone::PingMsgConstPtr &ping) {
 
-        std::cout << "Ping callback" << std::endl;
+        // TODO Change structure
+        if (ping->frequency >= 39 && ping->frequency <= 41)
+        {
+            ping40kHzHandler.AddPing(ping);
+        }
+
 
     }
 

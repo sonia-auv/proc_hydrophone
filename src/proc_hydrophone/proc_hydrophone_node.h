@@ -29,6 +29,8 @@
 #include <ros/node_handle.h>
 #include <nav_msgs/Odometry.h>
 #include <provider_hydrophone/PingMsg.h>
+#include <proc_hydrophone/PingHandler.h>
+
 namespace proc_hydrophone {
 
 class ProcHydrophoneNode {
@@ -60,6 +62,8 @@ private:
     void PingCallback(const provider_hydrophone::PingMsgConstPtr &ping);
 
     nav_msgs::OdometryConstPtr lastOdom;
+
+    PingHandler ping40kHzHandler;
 
 };
 
