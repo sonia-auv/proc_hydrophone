@@ -25,6 +25,8 @@ namespace proc_hydrophone
 
         const uint8_t refreshTime = 1;
 
+        std::vector<provider_hydrophone::PingMsgConstPtr> pendingPings;
+
     };
 }
 

@@ -2,6 +2,7 @@
 // Created by coumarc9 on 7/16/17.
 //
 
+#include <proc_hydrophone/filter_strategy/LimitationStrategy.h>
 #include "proc_hydrophone/PingHandler.h"
 
 namespace proc_hydrophone
@@ -21,8 +22,18 @@ namespace proc_hydrophone
         if ((currentStamp - lastStamp).sec >= 1)
         {
             std::cout << "New group" << std::endl;
+
+            // TODO TEMP
+            LimitationStrategy strategy;
+
+            auto toto = strategy.Process(pendingPings);
+
+            pendingPings.clear();
+
             lastStamp = currentStamp;
         }
+
+        pendingPings.push_back(ping);
 
     }
 }

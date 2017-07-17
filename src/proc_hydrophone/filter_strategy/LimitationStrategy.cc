@@ -17,7 +17,34 @@ namespace proc_hydrophone
 
     std::vector<provider_hydrophone::PingMsgConstPtr>
     LimitationStrategy::Process(std::vector<provider_hydrophone::PingMsgConstPtr> pings) {
-        return std::vector<provider_hydrophone::PingMsgConstPtr>();
+
+        std::vector<provider_hydrophone::PingMsgConstPtr> filteredPings;
+
+        for (auto ping : pings)
+        {
+
+            auto elevation = ping->elevation;
+
+            // TODO Validation first
+            if (elevation != elevation) // NAN
+            {
+                std::cout << "NAN" << std::endl;
+                continue;
+            }
+
+            if (ping->amplitude < 100000) // TODO TEMP, test
+            {
+                std::cout << "Amplitude < 100000" << std::endl;
+                continue;
+            }
+
+            filteredPings.push_back(ping);
+
+        }
+
+        std::cout << "Previous : " << pings.size() << " After : " << filteredPings.size() << std::endl;
+
+        return filteredPings;
     }
 
 
