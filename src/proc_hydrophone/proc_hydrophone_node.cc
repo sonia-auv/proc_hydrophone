@@ -36,6 +36,7 @@ namespace proc_hydrophone {
         : nh_(nh)
     {
         odomSubscriber = nh_->subscribe("/proc_navigation/odom", 100, &ProcHydrophoneNode::OdomCallback, this);
+        providerHydrophoneSubscriber = nh_->subscribe("/provider_hydrophone/ping", 100, &ProcHydrophoneNode::PingCallback, this);
     }
 
     //------------------------------------------------------------------------------
@@ -56,9 +57,13 @@ namespace proc_hydrophone {
     }
 
     void ProcHydrophoneNode::OdomCallback(const nav_msgs::OdometryConstPtr &odom) {
-
         // Simply save the last odom msg
         this->lastOdom = odom;
+    }
+
+    void ProcHydrophoneNode::PingCallback(const provider_hydrophone::PingMsgConstPtr &ping) {
+
+        std::cout << "Ping callback" << std::endl;
 
     }
 

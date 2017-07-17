@@ -34,6 +34,7 @@ find_package(
         std_msgs
         message_generation
         message_runtime
+        provider_hydrophone
 
 )
 
@@ -53,6 +54,7 @@ catkin_package(
         roscpp
         std_msgs
         message_runtime
+        provider_hydrophone
 )
 
 
