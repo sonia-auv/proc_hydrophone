@@ -15,9 +15,9 @@ namespace proc_hydrophone
 
     }
 
-    geometry_msgs::QuaternionConstPtr
+    std::vector<provider_hydrophone::PingMsgConstPtr>
     LimitationStrategy::Process(std::vector<provider_hydrophone::PingMsgConstPtr> pings) {
-        return geometry_msgs::QuaternionConstPtr();
+        return std::vector<provider_hydrophone::PingMsgConstPtr>();
     }
 
 

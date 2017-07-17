@@ -12,7 +12,7 @@ namespace proc_hydrophone
 {
     class IFilterStrategy
     {
-        virtual geometry_msgs::QuaternionConstPtr Process(std::vector<provider_hydrophone::PingMsgConstPtr> pings) = 0;
+        virtual std::vector<provider_hydrophone::PingMsgConstPtr> Process(std::vector<provider_hydrophone::PingMsgConstPtr> pings) = 0;
     };
 }
 
