@@ -12,6 +12,7 @@ namespace proc_hydrophone
 {
     class IFilterStrategy
     {
+    public:
         virtual std::vector<provider_hydrophone::PingMsgConstPtr> Process(std::vector<provider_hydrophone::PingMsgConstPtr> pings) = 0;
     };
 }

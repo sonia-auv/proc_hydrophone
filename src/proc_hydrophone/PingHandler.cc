@@ -26,7 +26,9 @@ namespace proc_hydrophone
             // TODO TEMP
             LimitationStrategy strategy;
 
-            auto toto = strategy.Process(pendingPings);
+            auto pingsValidated = strategy.Process(pendingPings);
+
+
 
             pendingPings.clear();
 
