@@ -35,7 +35,7 @@ find_package(
         message_generation
         message_runtime
         provider_hydrophone
-
+        geometry_msgs
 )
 
 #===============================================================================
@@ -55,6 +55,7 @@ catkin_package(
         std_msgs
         message_runtime
         provider_hydrophone
+        geometry_msgs
 )
 
 
