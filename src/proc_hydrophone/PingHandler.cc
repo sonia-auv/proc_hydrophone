@@ -2,15 +2,16 @@
 // Created by coumarc9 on 7/16/17.
 //
 
-#include <proc_hydrophone/filter_strategy/LimitationStrategy.h>
-#include <proc_hydrophone/ping_merge_strategy/MeanMergeStrategy.h>
 #include "proc_hydrophone/PingHandler.h"
 
 namespace proc_hydrophone
 {
-    PingHandler::PingHandler(uint8_t frequency)
-        : frequency(frequency)
+    PingHandler::PingHandler(uint8_t frequency, std::shared_ptr<IFilterStrategy> filterStrategy, std::shared_ptr<IPingMergeStrategy> pingMergeStrategy)
+        : frequency(frequency),
+          filterStrategy(filterStrategy),
+          pingMergeStrategy(pingMergeStrategy)
     {
+
     }
 
     PingHandler::~PingHandler() {}
@@ -22,18 +23,14 @@ namespace proc_hydrophone
         // If new group, process
         if ((currentStamp - lastStamp).sec >= 1)
         {
-            std::cout << "New group" << std::endl;
 
-            // TODO TEMP
-            LimitationStrategy strategy;
-            // TODO TEMP
-            MeanMergeStrategy mergeStrategy;
+            auto pingsValidated = filterStrategy->Process(pendingPings);
 
-            auto pingsValidated = strategy.Process(pendingPings);
-
-            auto orientation = mergeStrategy.Merge(pingsValidated);
-
-            //mergeStrategy
+            if (pingsValidated.size() > 0)
+            {
+                auto orientation = pingMergeStrategy->Merge(pingsValidated);
+                // TODO Use odom to create Pose then publish it
+            }
 
             pendingPings.clear();
 

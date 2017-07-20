@@ -9,7 +9,7 @@
 
 namespace proc_hydrophone
 {
-    class LimitationStrategy : IFilterStrategy {
+    class LimitationStrategy : public IFilterStrategy {
 
     public:
 

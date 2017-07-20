@@ -7,13 +7,14 @@
 
 #include <cstdint>
 #include <provider_hydrophone/PingMsg.h>
-
+#include <proc_hydrophone/filter_strategy/IFilterStrategy.h>
+#include <proc_hydrophone/ping_merge_strategy/IPingMergeStrategy.h>
 namespace proc_hydrophone
 {
     class PingHandler {
 
     public:
-        PingHandler(uint8_t frequency);
+        PingHandler(uint8_t frequency, std::shared_ptr<IFilterStrategy> filterStrategy, std::shared_ptr<IPingMergeStrategy> pingMergeStrategy);
         ~PingHandler();
 
         void AddPing(const provider_hydrophone::PingMsgConstPtr &ping);
@@ -21,6 +22,9 @@ namespace proc_hydrophone
     private:
 
         uint8_t frequency;
+        std::shared_ptr<IFilterStrategy> filterStrategy;
+        std::shared_ptr<IPingMergeStrategy> pingMergeStrategy;
+
         ros::Time lastStamp;
 
         const uint8_t refreshTime = 1;

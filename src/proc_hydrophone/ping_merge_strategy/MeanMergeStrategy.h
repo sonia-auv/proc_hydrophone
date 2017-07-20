@@ -9,7 +9,7 @@
 
 namespace proc_hydrophone {
 
-    class MeanMergeStrategy : IPingMergeStrategy {
+    class MeanMergeStrategy : public IPingMergeStrategy {
 
     public:
         MeanMergeStrategy();

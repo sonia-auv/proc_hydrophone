@@ -23,6 +23,8 @@
  * along with S.O.N.I.A. software. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <proc_hydrophone/filter_strategy/LimitationStrategy.h>
+#include <proc_hydrophone/ping_merge_strategy/MeanMergeStrategy.h>
 #include "proc_hydrophone/proc_hydrophone_node.h"
 
 namespace proc_hydrophone {
@@ -34,7 +36,7 @@ namespace proc_hydrophone {
     //
     ProcHydrophoneNode::ProcHydrophoneNode(const ros::NodeHandlePtr &nh)
         : nh_(nh),
-          ping40kHzHandler(PingHandler(40))
+          ping40kHzHandler(PingHandler(40, std::shared_ptr<IFilterStrategy>(new LimitationStrategy()), std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy())))
     {
         odomSubscriber = nh_->subscribe("/proc_navigation/odom", 100, &ProcHydrophoneNode::OdomCallback, this);
         providerHydrophoneSubscriber = nh_->subscribe("/provider_hydrophone/ping", 100, &ProcHydrophoneNode::PingCallback, this);
