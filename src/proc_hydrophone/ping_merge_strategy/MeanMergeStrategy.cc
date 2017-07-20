@@ -16,7 +16,7 @@ namespace proc_hydrophone
     geometry_msgs::QuaternionConstPtr
     MeanMergeStrategy::Merge(std::vector<provider_hydrophone::PingMsgConstPtr> pings) {
 
-        geometry_msgs::QuaternionPtr orientation;
+        geometry_msgs::QuaternionPtr orientation(new geometry_msgs::Quaternion());
 
         if (pings.size() == 1)
         {
