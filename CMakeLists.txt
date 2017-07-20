@@ -47,7 +47,7 @@ find_package(
 
 #add_service_files(DIRECTORY srv FILES )
 
-#generate_messages()
+generate_messages()
 
 catkin_package(
         CATKIN_DEPENDS
@@ -84,7 +84,7 @@ target_link_libraries(${PROJECT_NAME}_node
         yaml-cpp
         )
 
-#add_dependencies(${PROJECT_NAME}_node ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_node ${PROJECT_NAME}_generate_messages_cpp)
 
 #==========================================================================
 # U N I T   T E S T S
