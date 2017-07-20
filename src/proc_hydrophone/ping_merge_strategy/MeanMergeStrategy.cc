@@ -2,19 +2,19 @@
 // Created by coumarc9 on 7/17/17.
 //
 
-#include "AverageMergeStrategy.h"
+#include "MeanMergeStrategy.h"
 
 namespace proc_hydrophone
 {
 
-    AverageMergeStrategy::AverageMergeStrategy() {
+    MeanMergeStrategy::MeanMergeStrategy() {
 
     }
 
-    AverageMergeStrategy::~AverageMergeStrategy() {}
+    MeanMergeStrategy::~MeanMergeStrategy() {}
 
     geometry_msgs::QuaternionConstPtr
-    AverageMergeStrategy::Merge(std::vector<provider_hydrophone::PingMsgConstPtr> pings) {
+    MeanMergeStrategy::Merge(std::vector<provider_hydrophone::PingMsgConstPtr> pings) {
 
         geometry_msgs::QuaternionPtr orientation;
 

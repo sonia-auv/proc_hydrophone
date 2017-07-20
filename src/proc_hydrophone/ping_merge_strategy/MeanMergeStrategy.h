@@ -9,11 +9,11 @@
 
 namespace proc_hydrophone {
 
-    class AverageMergeStrategy : IPingMergeStrategy {
+    class MeanMergeStrategy : IPingMergeStrategy {
 
     public:
-        AverageMergeStrategy();
-        ~AverageMergeStrategy();
+        MeanMergeStrategy();
+        ~MeanMergeStrategy();
 
         geometry_msgs::QuaternionConstPtr Merge(std::vector<provider_hydrophone::PingMsgConstPtr> pings);
 

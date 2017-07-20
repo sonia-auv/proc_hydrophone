@@ -3,7 +3,7 @@
 //
 
 #include <proc_hydrophone/filter_strategy/LimitationStrategy.h>
-#include <proc_hydrophone/ping_merge_strategy/AverageMergeStrategy.h>
+#include <proc_hydrophone/ping_merge_strategy/MeanMergeStrategy.h>
 #include "proc_hydrophone/PingHandler.h"
 
 namespace proc_hydrophone
@@ -27,7 +27,7 @@ namespace proc_hydrophone
             // TODO TEMP
             LimitationStrategy strategy;
             // TODO TEMP
-            AverageMergeStrategy mergeStrategy;
+            MeanMergeStrategy mergeStrategy;
 
             auto pingsValidated = strategy.Process(pendingPings);
 
