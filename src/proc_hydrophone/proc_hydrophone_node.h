@@ -63,10 +63,10 @@ private:
     void PingCallback(const provider_hydrophone::PingMsgConstPtr &ping);
 
     nav_msgs::OdometryConstPtr lastOdom;
-
+    std::shared_ptr<Configuration> configuration;
     PingHandler ping40kHzHandler;
 
-    std::shared_ptr<Configuration> configuration;
+
 
 };
 
