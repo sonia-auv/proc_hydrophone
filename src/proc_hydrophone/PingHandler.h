@@ -36,6 +36,9 @@ namespace proc_hydrophone
 
         std::vector<provider_hydrophone::PingMsgConstPtr> pendingPings;
 
+        // TODO Configuration
+        const double offset = M_PI + 45 * M_PI / 180;
+
     };
 }
 

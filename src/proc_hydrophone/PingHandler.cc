@@ -35,14 +35,27 @@ namespace proc_hydrophone
                 auto orientation = pingMergeStrategy->Merge(pingsValidated);
                 // TODO Use odom to create Pose then publish it
 
-                std::cout << configuration->getOdometry()->header << std::endl;
+                auto odom = configuration->getOdometry();
 
-                //orientation->z += M_PI + 45 / M_PI * 180; // 45 ° offset
-                //orientation->z = std::fmod(orientation->z ,2 * M_PI);
+                // TODO Configuration
+                auto zBase = odom->pose.pose.orientation.z * M_PI / 180;
 
-                //geometry_msgs::PosePtr pose(new geometry_msgs::Pose);
+                auto newZ = fmod(zBase + offset - orientation->z, 2 * M_PI);
+
+                while (newZ < 0) // Make sure z is positive
+                    newZ += 2 * M_PI;
+
+                orientation->z = newZ;
+
+                geometry_msgs::PosePtr pose(new geometry_msgs::Pose);
+                pose->orientation = *orientation;
+                pose->position = odom->pose.pose.position;
 
 
+                std::cout << *odom << std::endl;
+                std::cout << *pose << std::endl;
+
+                // TODO Publish
 
             }
 
