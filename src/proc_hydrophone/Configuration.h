@@ -9,6 +9,12 @@ namespace proc_hydrophone
 {
     class Configuration {
 
+    public:
+        Configuration();
+        ~Configuration();
+
+
+
     };
 }
 

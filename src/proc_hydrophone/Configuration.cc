@@ -7,4 +7,11 @@
 namespace proc_hydrophone
 {
 
+    Configuration::Configuration() {
+
+    }
+
+    Configuration::~Configuration() {
+
+    }
 }
