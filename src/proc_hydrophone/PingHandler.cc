@@ -7,10 +7,13 @@
 
 namespace proc_hydrophone
 {
-    PingHandler::PingHandler(uint8_t frequency, std::shared_ptr<IFilterStrategy> filterStrategy, std::shared_ptr<IPingMergeStrategy> pingMergeStrategy)
+    PingHandler::PingHandler(uint8_t frequency, std::shared_ptr<IFilterStrategy> filterStrategy,
+                             std::shared_ptr<IPingMergeStrategy> pingMergeStrategy,
+                             std::shared_ptr<Configuration> &configuration)
         : frequency(frequency),
           filterStrategy(filterStrategy),
-          pingMergeStrategy(pingMergeStrategy)
+          pingMergeStrategy(pingMergeStrategy),
+          configuration(configuration)
     {
 
     }
@@ -31,6 +34,8 @@ namespace proc_hydrophone
             {
                 auto orientation = pingMergeStrategy->Merge(pingsValidated);
                 // TODO Use odom to create Pose then publish it
+
+                std::cout << configuration->getOdometry()->header << std::endl;
 
                 //orientation->z += M_PI + 45 / M_PI * 180; // 45 ° offset
                 //orientation->z = std::fmod(orientation->z ,2 * M_PI);
