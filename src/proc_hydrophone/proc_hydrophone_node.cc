@@ -63,7 +63,7 @@ namespace proc_hydrophone {
 
     void ProcHydrophoneNode::OdomCallback(const nav_msgs::OdometryConstPtr &odom) {
         // Simply save the last odom msg
-        this->lastOdom = odom;
+        this->configuration->setOdometry(odom);
     }
 
     void ProcHydrophoneNode::PingCallback(const provider_hydrophone::PingMsgConstPtr &ping) {
