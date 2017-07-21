@@ -10,6 +10,7 @@
 #include <proc_hydrophone/PingPose.h>
 #include <proc_hydrophone/filter_strategy/IFilterStrategy.h>
 #include <proc_hydrophone/ping_merge_strategy/IPingMergeStrategy.h>
+#include <ros/publisher.h>
 #include "Configuration.h"
 
 namespace proc_hydrophone
@@ -19,7 +20,8 @@ namespace proc_hydrophone
     public:
         PingHandler(uint8_t frequency, std::shared_ptr<IFilterStrategy> filterStrategy,
                     std::shared_ptr<IPingMergeStrategy> pingMergeStrategy,
-                    std::shared_ptr<Configuration> &configuration);
+                    std::shared_ptr<Configuration> &configuration,
+                    ros::Publisher &pingPosePublisher);
         ~PingHandler();
 
         void AddPing(const provider_hydrophone::PingMsgConstPtr &ping);
@@ -39,6 +41,8 @@ namespace proc_hydrophone
 
         // TODO Configuration
         const double offset = M_PI + 45 * M_PI / 180;
+
+        const ros::Publisher pingPosePublisher;
 
     };
 }

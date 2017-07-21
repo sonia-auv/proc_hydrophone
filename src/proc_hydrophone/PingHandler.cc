@@ -9,11 +9,13 @@ namespace proc_hydrophone
 {
     PingHandler::PingHandler(uint8_t frequency, std::shared_ptr<IFilterStrategy> filterStrategy,
                              std::shared_ptr<IPingMergeStrategy> pingMergeStrategy,
-                             std::shared_ptr<Configuration> &configuration)
+                             std::shared_ptr<Configuration> &configuration,
+                             ros::Publisher &pingPosePublisher)
         : frequency(frequency),
           filterStrategy(filterStrategy),
           pingMergeStrategy(pingMergeStrategy),
-          configuration(configuration)
+          configuration(configuration),
+          pingPosePublisher(pingPosePublisher)
     {
 
     }
@@ -52,7 +54,7 @@ namespace proc_hydrophone
                 pose->position = odom->pose.pose.position;
 
 
-                PingPosePtr pingPose;
+                PingPosePtr pingPose(new PingPose);
                 pingPose->pose = *pose;
                 pingPose->frequency = this->frequency;
                 // TODO Add amplitude and noise
@@ -61,7 +63,7 @@ namespace proc_hydrophone
                 std::cout << *odom << std::endl;
                 std::cout << *pose << std::endl;
 
-                // TODO Publish
+                pingPosePublisher.publish(pingPose);
 
             }
 

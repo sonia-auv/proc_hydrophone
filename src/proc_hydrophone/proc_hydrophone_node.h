@@ -54,7 +54,7 @@ class ProcHydrophoneNode {
 private:
 
     ros::NodeHandlePtr nh_;
-
+    std::shared_ptr<Configuration> configuration;
 
     ros::Subscriber odomSubscriber;
     ros::Subscriber providerHydrophoneSubscriber;
@@ -63,7 +63,7 @@ private:
     void OdomCallback(const nav_msgs::OdometryConstPtr &odom);
     void PingCallback(const provider_hydrophone::PingMsgConstPtr &ping);
 
-    std::shared_ptr<Configuration> configuration;
+
     PingHandler ping40kHzHandler;
 
 

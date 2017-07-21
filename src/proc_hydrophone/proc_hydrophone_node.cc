@@ -37,11 +37,11 @@ namespace proc_hydrophone {
     ProcHydrophoneNode::ProcHydrophoneNode(const ros::NodeHandlePtr &nh)
         : nh_(nh),
           configuration(new Configuration()),
-          ping40kHzHandler(PingHandler(40, std::shared_ptr<IFilterStrategy>(new LimitationStrategy()), std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration))
+          pingPosePublisher(nh_->advertise<proc_hydrophone::PingPose>("/proc_hydrophone/ping", 100)),
+          ping40kHzHandler(PingHandler(40, std::shared_ptr<IFilterStrategy>(new LimitationStrategy()), std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher))
     {
         odomSubscriber = nh_->subscribe("/proc_navigation/odom", 100, &ProcHydrophoneNode::OdomCallback, this);
         providerHydrophoneSubscriber = nh_->subscribe("/provider_hydrophone/ping", 100, &ProcHydrophoneNode::PingCallback, this);
-        pingPosePublisher = nh_->advertise<proc_hydrophone::PingPose>("/proc_hydrophone/ping", 100);
     }
 
     //------------------------------------------------------------------------------
