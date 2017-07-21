@@ -7,6 +7,7 @@
 
 #include <cstdint>
 #include <provider_hydrophone/PingMsg.h>
+#include <proc_hydrophone/PingPose.h>
 #include <proc_hydrophone/filter_strategy/IFilterStrategy.h>
 #include <proc_hydrophone/ping_merge_strategy/IPingMergeStrategy.h>
 #include "Configuration.h"

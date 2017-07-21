@@ -52,6 +52,12 @@ namespace proc_hydrophone
                 pose->position = odom->pose.pose.position;
 
 
+                PingPosePtr pingPose;
+                pingPose->pose = *pose;
+                pingPose->frequency = this->frequency;
+                // TODO Add amplitude and noise
+
+
                 std::cout << *odom << std::endl;
                 std::cout << *pose << std::endl;
 
