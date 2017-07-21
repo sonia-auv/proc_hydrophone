@@ -54,7 +54,7 @@ namespace proc_hydrophone {
     //
     void ProcHydrophoneNode::Spin() {
 
-      ros::Rate r(0.5);  // 15 hz
+      ros::Rate r(15);  // 15 hz
       while (ros::ok()) {
         ros::spinOnce();
         r.sleep();
