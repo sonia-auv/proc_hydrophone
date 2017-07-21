@@ -58,6 +58,7 @@ private:
 
     ros::Subscriber odomSubscriber;
     ros::Subscriber providerHydrophoneSubscriber;
+    ros::Publisher pingPosePublisher;
 
     void OdomCallback(const nav_msgs::OdometryConstPtr &odom);
     void PingCallback(const provider_hydrophone::PingMsgConstPtr &ping);

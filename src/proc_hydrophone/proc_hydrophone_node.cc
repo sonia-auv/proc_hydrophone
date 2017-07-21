@@ -41,7 +41,7 @@ namespace proc_hydrophone {
     {
         odomSubscriber = nh_->subscribe("/proc_navigation/odom", 100, &ProcHydrophoneNode::OdomCallback, this);
         providerHydrophoneSubscriber = nh_->subscribe("/provider_hydrophone/ping", 100, &ProcHydrophoneNode::PingCallback, this);
-
+        pingPosePublisher = nh_->advertise<proc_hydrophone::PingPose>("/proc_hydrophone/ping", 100);
     }
 
     //------------------------------------------------------------------------------
