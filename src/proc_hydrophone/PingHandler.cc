@@ -2,6 +2,7 @@
 // Created by coumarc9 on 7/16/17.
 //
 
+#include <geometry_msgs/Pose.h>
 #include "proc_hydrophone/PingHandler.h"
 
 namespace proc_hydrophone
@@ -30,6 +31,14 @@ namespace proc_hydrophone
             {
                 auto orientation = pingMergeStrategy->Merge(pingsValidated);
                 // TODO Use odom to create Pose then publish it
+
+                //orientation->z += M_PI + 45 / M_PI * 180; // 45 ° offset
+                //orientation->z = std::fmod(orientation->z ,2 * M_PI);
+
+                //geometry_msgs::PosePtr pose(new geometry_msgs::Pose);
+
+
+
             }
 
             pendingPings.clear();

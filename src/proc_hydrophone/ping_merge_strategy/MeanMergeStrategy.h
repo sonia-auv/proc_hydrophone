@@ -15,7 +15,7 @@ namespace proc_hydrophone {
         MeanMergeStrategy();
         ~MeanMergeStrategy();
 
-        geometry_msgs::QuaternionConstPtr Merge(std::vector<provider_hydrophone::PingMsgConstPtr> pings);
+        geometry_msgs::QuaternionPtr Merge(std::vector<provider_hydrophone::PingMsgConstPtr> pings);
 
     };
 

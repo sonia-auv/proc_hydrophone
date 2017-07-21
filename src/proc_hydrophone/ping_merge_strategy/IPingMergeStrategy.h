@@ -14,7 +14,7 @@ namespace proc_hydrophone
     {
     public:
 
-        virtual geometry_msgs::QuaternionConstPtr Merge(std::vector<provider_hydrophone::PingMsgConstPtr> pings) = 0;
+        virtual geometry_msgs::QuaternionPtr Merge(std::vector<provider_hydrophone::PingMsgConstPtr> pings) = 0;
 
     };
 }
