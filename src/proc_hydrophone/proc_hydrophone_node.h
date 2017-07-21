@@ -30,6 +30,7 @@
 #include <nav_msgs/Odometry.h>
 #include <provider_hydrophone/PingMsg.h>
 #include <proc_hydrophone/PingHandler.h>
+#include <proc_hydrophone/Configuration.h>
 
 namespace proc_hydrophone {
 
@@ -64,6 +65,8 @@ private:
     nav_msgs::OdometryConstPtr lastOdom;
 
     PingHandler ping40kHzHandler;
+
+    std::shared_ptr<Configuration> configuration;
 
 };
 
