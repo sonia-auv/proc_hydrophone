@@ -69,7 +69,7 @@ namespace proc_hydrophone {
     void ProcHydrophoneNode::PingCallback(const provider_hydrophone::PingMsgConstPtr &ping) {
 
         // TODO Change structure
-        if (ping->frequency >= 39 && ping->frequency <= 41)
+        if (ping->frequency >= 29 && ping->frequency <= 31)
         {
             ping40kHzHandler.AddPing(ping);
         }

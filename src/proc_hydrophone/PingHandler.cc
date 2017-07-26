@@ -24,6 +24,8 @@ namespace proc_hydrophone
 
     void PingHandler::AddPing(const provider_hydrophone::PingMsgConstPtr &ping) {
 
+        //std::cout << "PING!" << std::endl << *ping << std::endl << "END PING!" << std::endl;
+
         auto currentStamp = ping->header.stamp;
 
         // If new group, process
@@ -34,6 +36,14 @@ namespace proc_hydrophone
 
             if (pingsValidated.size() > 0)
             {
+
+                for (auto toto : pingsValidated)
+                {
+                    std::cout << "PING!" << std::endl << *toto << std::endl << "END PING!" << std::endl;
+                }
+
+
+
                 auto orientation = pingMergeStrategy->Merge(pingsValidated);
                 // TODO Use odom to create Pose then publish it
 

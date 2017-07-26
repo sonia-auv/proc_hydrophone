@@ -32,9 +32,9 @@ namespace proc_hydrophone
                 continue;
             }
 
-            if (ping->amplitude < 100000) // TODO TEMP, test
+            if (ping->amplitude < 10000) // TODO TEMP, test
             {
-                std::cout << "Amplitude < 100000" << std::endl;
+                std::cout << "Amplitude < 10000" << std::endl;
                 continue;
             }
 
