@@ -6,6 +6,7 @@
 #define PROC_HYDROPHONE_LIMITATIONSTRATEGY_H
 
 #include <proc_hydrophone/filter_strategy/IFilterStrategy.h>
+#include <ros/ros.h>
 
 namespace proc_hydrophone
 {

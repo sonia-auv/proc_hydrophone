@@ -28,13 +28,13 @@ namespace proc_hydrophone
             // TODO Validation first
             if (elevation != elevation) // NAN
             {
-                std::cout << "NAN" << std::endl;
+                ROS_DEBUG("Elevation was NAN");
                 continue;
             }
 
             if (ping->amplitude < 10000) // TODO TEMP, test
             {
-                std::cout << "Amplitude < 10000" << std::endl;
+                ROS_DEBUG("Amplitude was < than 10000");
                 continue;
             }
 
@@ -42,7 +42,7 @@ namespace proc_hydrophone
 
         }
 
-        std::cout << "Previous : " << pings.size() << " After : " << filteredPings.size() << std::endl;
+        ROS_DEBUG_STREAM("Limitation strategy result Previous : " << pings.size() << " After : " << filteredPings.size());
 
         return filteredPings;
     }

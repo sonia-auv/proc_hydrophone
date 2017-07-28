@@ -24,8 +24,6 @@ namespace proc_hydrophone
 
     void PingHandler::AddPing(const provider_hydrophone::PingMsgConstPtr &ping) {
 
-        //std::cout << "PING!" << std::endl << *ping << std::endl << "END PING!" << std::endl;
-
         auto currentStamp = ping->header.stamp;
 
         // If new group, process
@@ -39,7 +37,7 @@ namespace proc_hydrophone
 
                 for (auto toto : pingsValidated)
                 {
-                    std::cout << "PING!" << std::endl << *toto << std::endl << "END PING!" << std::endl;
+                    ROS_DEBUG_STREAM("Ping received : " << *toto);
                 }
 
 
@@ -68,10 +66,6 @@ namespace proc_hydrophone
                 pingPose->pose = *pose;
                 pingPose->frequency = this->frequency;
                 // TODO Add amplitude and noise
-
-
-                std::cout << *odom << std::endl;
-                std::cout << *pose << std::endl;
 
                 pingPosePublisher.publish(pingPose);
 
