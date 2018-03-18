@@ -23,8 +23,10 @@
  * along with S.O.N.I.A. software. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <proc_hydrophone/filter_strategy/KeepFirstPingFilter.h>
+#include <proc_hydrophone/filter_strategy/CompositeFilter.h>
 #include <proc_hydrophone/ping_merge_strategy/MeanMergeStrategy.h>
+#include <proc_hydrophone/filter_strategy/KeepFirstPingFilter.h>
+#include <proc_hydrophone/filter_strategy/ElevationNaNFilter.h>
 #include "proc_hydrophone/proc_hydrophone_node.h"
 
 namespace proc_hydrophone {
@@ -37,9 +39,19 @@ namespace proc_hydrophone {
     ProcHydrophoneNode::ProcHydrophoneNode(const ros::NodeHandlePtr &nh)
         : nh_(nh),
           configuration(new Configuration()),
-          pingPosePublisher(nh_->advertise<proc_hydrophone::PingPose>("/proc_hydrophone/ping", 100)),
-          ping40kHzHandler(PingHandler(40, std::shared_ptr<IFilterStrategy>(new KeepFirstPingFilter()), std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher))
+          pingPosePublisher(nh_->advertise<proc_hydrophone::PingPose>("/proc_hydrophone/ping", 100))
     {
+
+        std::shared_ptr<IFilterStrategy> keepFirstPingFilter(new KeepFirstPingFilter());
+        std::shared_ptr<IFilterStrategy> elevationNaNFilter(new ElevationNaNFilter());
+
+        std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> filters(new std::vector<std::shared_ptr<IFilterStrategy>>);
+        filters->push_back(keepFirstPingFilter);
+        filters->push_back(elevationNaNFilter);
+
+        std::shared_ptr<IFilterStrategy> filterStrategy(new CompositeFilter(filters));
+
+        ping40kHzHandler = std::shared_ptr<PingHandler>(new PingHandler(40, filterStrategy, std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher));
         odomSubscriber = nh_->subscribe("/proc_navigation/odom", 100, &ProcHydrophoneNode::OdomCallback, this);
         providerHydrophoneSubscriber = nh_->subscribe("/provider_hydrophone/ping", 100, &ProcHydrophoneNode::PingCallback, this);
     }
@@ -69,9 +81,9 @@ namespace proc_hydrophone {
     void ProcHydrophoneNode::PingCallback(const provider_hydrophone::PingMsgConstPtr &ping) {
 
         // TODO Change structure
-        if (ping->frequency >= 29 && ping->frequency <= 31)
+        if (ping->frequency >= 39 && ping->frequency <= 41)
         {
-            ping40kHzHandler.AddPing(ping);
+            ping40kHzHandler->AddPing(ping);
         }
 
 

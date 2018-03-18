@@ -64,7 +64,7 @@ private:
     void PingCallback(const provider_hydrophone::PingMsgConstPtr &ping);
 
 
-    PingHandler ping40kHzHandler;
+    std::shared_ptr<PingHandler> ping40kHzHandler;
 
 
 

@@ -7,7 +7,7 @@
 namespace proc_hydrophone
 {
 
-    CompositeFilter::CompositeFilter() {}
+    CompositeFilter::CompositeFilter(std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> filters) : filters(filters) {}
 
     CompositeFilter::~CompositeFilter() {
 
@@ -15,6 +15,13 @@ namespace proc_hydrophone
 
     std::vector<provider_hydrophone::PingMsgConstPtr>
     CompositeFilter::Process(std::vector<provider_hydrophone::PingMsgConstPtr> pings) {
-        return pings;
+
+        std::vector<provider_hydrophone::PingMsgConstPtr> filteredPings = pings;
+
+        for (auto filter : *filters) {
+            filteredPings = filter->Process(filteredPings);
+        }
+
+        return filteredPings;
     }
 }

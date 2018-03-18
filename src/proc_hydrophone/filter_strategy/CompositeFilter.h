@@ -11,12 +11,16 @@
 namespace proc_hydrophone {
     class CompositeFilter : public IFilterStrategy{
     public:
-        CompositeFilter();
+        CompositeFilter(std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> filters);
 
         virtual ~CompositeFilter();
 
         std::vector<provider_hydrophone::PingMsgConstPtr>
         Process(std::vector<provider_hydrophone::PingMsgConstPtr> pings) override;
+
+    private:
+        std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> filters;
+
     };
 }
 
