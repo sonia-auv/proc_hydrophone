@@ -13,12 +13,16 @@ namespace proc_hydrophone {
     class KeepFirstPingFilter : public IFilterStrategy {
 
     public:
-        KeepFirstPingFilter();
+        KeepFirstPingFilter(uint32_t nb = 1);
 
         virtual ~KeepFirstPingFilter();
 
         std::vector<provider_hydrophone::PingMsgConstPtr>
         Process(std::vector<provider_hydrophone::PingMsgConstPtr> pings) override;
+
+    private:
+
+        uint32_t nb;
 
     };
 
