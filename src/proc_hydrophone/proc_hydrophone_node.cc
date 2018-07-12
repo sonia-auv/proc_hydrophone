@@ -51,7 +51,11 @@ namespace proc_hydrophone {
 
         std::shared_ptr<IFilterStrategy> filterStrategy(new CompositeFilter(filters));
 
-        ping40kHzHandler = std::shared_ptr<PingHandler>(new PingHandler(40, filterStrategy, std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher));
+        ping25kHzHandler_ = std::shared_ptr<PingHandler>(new PingHandler(25, filterStrategy, std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher));
+        ping30kHzHandler_ = std::shared_ptr<PingHandler>(new PingHandler(30, filterStrategy, std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher));
+        ping35kHzHandler_ = std::shared_ptr<PingHandler>(new PingHandler(35, filterStrategy, std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher));
+        ping40kHzHandler_ = std::shared_ptr<PingHandler>(new PingHandler(40, filterStrategy, std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher));
+
         odomSubscriber = nh_->subscribe("/proc_navigation/odom", 100, &ProcHydrophoneNode::OdomCallback, this);
         providerHydrophoneSubscriber = nh_->subscribe("/provider_hydrophone/ping", 100, &ProcHydrophoneNode::PingCallback, this);
     }
@@ -80,12 +84,23 @@ namespace proc_hydrophone {
 
     void ProcHydrophoneNode::PingCallback(const provider_hydrophone::PingMsgConstPtr &ping) {
 
-        // TODO Change structure
+
         if (ping->frequency >= 39 && ping->frequency <= 41)
         {
-            ping40kHzHandler->AddPing(ping);
+            ping40kHzHandler_->AddPing(ping);
         }
-
+        else if (ping->frequency >= 34 && ping->frequency <= 36)
+        {
+            ping35kHzHandler_->AddPing(ping);
+        }
+        else if (ping->frequency >= 29 && ping->frequency <= 31)
+        {
+            ping30kHzHandler_->AddPing(ping);
+        }
+        else if (ping->frequency >= 24 && ping->frequency <= 26)
+        {
+            ping25kHzHandler_->AddPing(ping);
+        }
 
     }
 

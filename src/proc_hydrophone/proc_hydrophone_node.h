@@ -63,8 +63,10 @@ private:
     void OdomCallback(const nav_msgs::OdometryConstPtr &odom);
     void PingCallback(const provider_hydrophone::PingMsgConstPtr &ping);
 
-
-    std::shared_ptr<PingHandler> ping40kHzHandler;
+    std::shared_ptr<PingHandler> ping25kHzHandler_;
+    std::shared_ptr<PingHandler> ping30kHzHandler_;
+    std::shared_ptr<PingHandler> ping35kHzHandler_;
+    std::shared_ptr<PingHandler> ping40kHzHandler_;
 
 
 
