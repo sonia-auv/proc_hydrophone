@@ -40,7 +40,7 @@ namespace proc_hydrophone
         std::vector<provider_hydrophone::PingMsgConstPtr> pendingPings;
 
         // TODO Configuration
-        const double offset = 45 * M_PI / 180;
+        const double offset = 55 * M_PI / 180;
 
         const ros::Publisher pingPosePublisher;
 
