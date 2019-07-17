@@ -27,6 +27,7 @@
 #include <proc_hydrophone/ping_merge_strategy/MeanMergeStrategy.h>
 #include <proc_hydrophone/filter_strategy/KeepFirstPingFilter.h>
 #include <proc_hydrophone/filter_strategy/ElevationNaNFilter.h>
+#include <proc_hydrophone/filter_strategy/AmplitudeFilter.h>
 #include "proc_hydrophone/proc_hydrophone_node.h"
 
 namespace proc_hydrophone {
@@ -44,10 +45,12 @@ namespace proc_hydrophone {
 
         std::shared_ptr<IFilterStrategy> keepFirstPingFilter(new KeepFirstPingFilter());
         std::shared_ptr<IFilterStrategy> elevationNaNFilter(new ElevationNaNFilter());
+        std::shared_ptr<IFilterStrategy> amplitudeFilter(new AmplitudeFilter(165000));
 
         std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> filters(new std::vector<std::shared_ptr<IFilterStrategy>>);
         filters->push_back(keepFirstPingFilter);
         filters->push_back(elevationNaNFilter);
+        filters->push_back(amplitudeFilter);
 
         std::shared_ptr<IFilterStrategy> filterStrategy(new CompositeFilter(filters));
 
