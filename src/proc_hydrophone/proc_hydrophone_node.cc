@@ -44,16 +44,16 @@ namespace proc_hydrophone {
           pingPosePublisher(nh_->advertise<proc_hydrophone::PingPose>("/proc_hydrophone/ping", 100))
     {
 
-        //std::shared_ptr<IFilterStrategy> keepFirstPingFilter(new KeepFirstPingFilter());
+        std::shared_ptr<IFilterStrategy> keepFirstPingFilter(new KeepFirstPingFilter());
         std::shared_ptr<IFilterStrategy> elevationNaNFilter(new ElevationNaNFilter());
-        //std::shared_ptr<IFilterStrategy> amplitudeFilter(new AmplitudeFilter(250000));
-        std::shared_ptr<IFilterStrategy> ratioAmpNoiseFilter(new RatioAmpNoiseFilter(10));
+        std::shared_ptr<IFilterStrategy> amplitudeFilter(new AmplitudeFilter(20000000, 375000));
+        std::shared_ptr<IFilterStrategy> ratioAmpNoiseFilter(new RatioAmpNoiseFilter(10, 8));
 
         std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> filters(new std::vector<std::shared_ptr<IFilterStrategy>>);
-        //filters->push_back(keepFirstPingFilter);
+        filters->push_back(keepFirstPingFilter);
+        filters->push_back(amplitudeFilter);
+        //filters->push_back(ratioAmpNoiseFilter);
         filters->push_back(elevationNaNFilter);
-        //filters->push_back(amplitudeFilter);
-        filters->push_back(ratioAmpNoiseFilter);
 
         std::shared_ptr<IFilterStrategy> filterStrategy(new CompositeFilter(filters));
 

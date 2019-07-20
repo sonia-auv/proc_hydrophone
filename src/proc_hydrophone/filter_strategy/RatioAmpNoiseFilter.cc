@@ -6,8 +6,9 @@
 
 namespace proc_hydrophone {
 
-    RatioAmpNoiseFilter::RatioAmpNoiseFilter(uint32_t maxRatio) :
-                maxRatio(maxRatio) {}
+    RatioAmpNoiseFilter::RatioAmpNoiseFilter(uint32_t maxRatio, uint32_t minRatio) :
+                maxRatio(maxRatio),
+                minRatio(minRatio) {}
 
     RatioAmpNoiseFilter::~RatioAmpNoiseFilter() {}
 
@@ -18,9 +19,9 @@ namespace proc_hydrophone {
 
         for (auto ping : pings) {
 
-            u_int32_t Ratio = ((ping->amplitude) - (ping->noise)) / 10000;
+            double Ratio = (ping->amplitude)/(ping->noise);
 
-            if (Ratio < maxRatio) // Not NaN
+            if (Ratio <= maxRatio && Ratio >= minRatio ) // Not NaN
             {
                 filteredPings.push_back(ping);
             }

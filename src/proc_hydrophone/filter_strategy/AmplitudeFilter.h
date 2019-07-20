@@ -14,7 +14,7 @@ namespace proc_hydrophone {
     class AmplitudeFilter : public IFilterStrategy {
 
     public:
-        AmplitudeFilter(uint32_t minAmplitude);
+        AmplitudeFilter(uint32_t maxAmplitude, uint32_t minAmplitude);
 
         virtual ~AmplitudeFilter();
 
@@ -23,6 +23,7 @@ namespace proc_hydrophone {
 
     private:
         uint32_t minAmplitude;
+        uint32_t maxAmplitude;
 
     };
 }

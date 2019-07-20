@@ -13,7 +13,7 @@ namespace proc_hydrophone {
     class RatioAmpNoiseFilter : public IFilterStrategy {
 
     public:
-        RatioAmpNoiseFilter(uint32_t maxRatio);
+        RatioAmpNoiseFilter(uint32_t maxRatio, uint32_t minRatio);
 
         virtual ~RatioAmpNoiseFilter();
 
@@ -22,6 +22,7 @@ namespace proc_hydrophone {
 
     private:
         uint32_t maxRatio;
+        uint32_t minRatio;
     };
 
 }

@@ -6,8 +6,9 @@
 
 namespace proc_hydrophone {
 
-    AmplitudeFilter::AmplitudeFilter(uint32_t minAmplitude) :
-            minAmplitude(minAmplitude) {}
+    AmplitudeFilter::AmplitudeFilter(uint32_t maxAmplitude, uint32_t minAmplitude) :
+            minAmplitude(minAmplitude),
+            maxAmplitude(maxAmplitude) {}
 
     AmplitudeFilter::~AmplitudeFilter() {}
 
@@ -18,9 +19,9 @@ namespace proc_hydrophone {
 
         for (auto ping : pings) {
 
-            u_int32_t amplitude = ping->amplitude;
+            uint64_t amplitude = ping->amplitude;
 
-            if (amplitude >= minAmplitude) // Not NaN
+            if ((amplitude <= maxAmplitude && amplitude >= minAmplitude)) // Not NaN
             {
                 filteredPings.push_back(ping);
             }
