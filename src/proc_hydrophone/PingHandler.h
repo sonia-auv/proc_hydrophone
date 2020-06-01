@@ -6,7 +6,7 @@
 #define PROC_HYDROPHONE_PINGHANDLER_H
 
 #include <cstdint>
-#include <provider_hydrophone/PingMsg.h>
+#include <sonia_msgs/PingMsg.h>
 #include <proc_hydrophone/PingPose.h>
 #include <proc_hydrophone/filter_strategy/IFilterStrategy.h>
 #include <proc_hydrophone/ping_merge_strategy/IPingMergeStrategy.h>
@@ -24,7 +24,7 @@ namespace proc_hydrophone
                     ros::Publisher &pingPosePublisher);
         ~PingHandler();
 
-        void AddPing(const provider_hydrophone::PingMsgConstPtr &ping);
+        void AddPing(const sonia_msgs::PingMsgConstPtr &ping);
 
     private:
 
@@ -37,7 +37,7 @@ namespace proc_hydrophone
 
         const uint8_t refreshTime = 1;
 
-        std::vector<provider_hydrophone::PingMsgConstPtr> pendingPings;
+        std::vector<sonia_msgs::PingMsgConstPtr> pendingPings;
 
         // TODO Configuration
         const double offset = 55 * M_PI / 180;
