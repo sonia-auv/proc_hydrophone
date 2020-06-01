@@ -22,7 +22,7 @@ namespace proc_hydrophone
 
     PingHandler::~PingHandler() {}
 
-    void PingHandler::AddPing(const provider_hydrophone::PingMsgConstPtr &ping) {
+    void PingHandler::AddPing(const sonia_msgs::PingMsgConstPtr &ping) {
 
         auto currentStamp = ping->header.stamp;
 

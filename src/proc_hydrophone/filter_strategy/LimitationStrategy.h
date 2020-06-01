@@ -17,7 +17,7 @@ namespace proc_hydrophone
         LimitationStrategy();
         ~LimitationStrategy();
 
-        std::vector<provider_hydrophone::PingMsgConstPtr> Process(std::vector<provider_hydrophone::PingMsgConstPtr> pings);
+        std::vector<sonia_msgs::PingMsgConstPtr> Process(std::vector<sonia_msgs::PingMsgConstPtr> pings);
 
     };
 }

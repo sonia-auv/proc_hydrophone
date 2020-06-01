@@ -34,7 +34,7 @@ find_package(
         std_msgs
         message_generation
         message_runtime
-        provider_hydrophone
+        sonia_msgs
         geometry_msgs
 )
 
@@ -55,7 +55,7 @@ catkin_package(
         roscpp
         std_msgs
         message_runtime
-        provider_hydrophone
+        sonia_msgs
         geometry_msgs
 )
 
@@ -85,7 +85,7 @@ target_link_libraries(${PROJECT_NAME}_node
         yaml-cpp
         )
 
-add_dependencies(${PROJECT_NAME}_node ${PROJECT_NAME}_generate_messages_cpp)
+add_dependencies(${PROJECT_NAME}_node ${PROJECT_NAME}_generate_messages_cpp ${catkin_EXPORTED_TARGETS})
 
 #==========================================================================
 # U N I T   T E S T S

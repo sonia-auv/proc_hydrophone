@@ -16,8 +16,8 @@ namespace proc_hydrophone
         ElevationNaNFilter();
         virtual ~ElevationNaNFilter();
 
-        std::vector<provider_hydrophone::PingMsgConstPtr>
-        Process(std::vector<provider_hydrophone::PingMsgConstPtr> pings) override;
+        std::vector<sonia_msgs::PingMsgConstPtr>
+        Process(std::vector<sonia_msgs::PingMsgConstPtr> pings) override;
 
     };
 

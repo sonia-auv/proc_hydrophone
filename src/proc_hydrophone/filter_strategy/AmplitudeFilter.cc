@@ -12,10 +12,10 @@ namespace proc_hydrophone {
 
     AmplitudeFilter::~AmplitudeFilter() {}
 
-    std::vector<provider_hydrophone::PingMsgConstPtr>
-    AmplitudeFilter::Process(std::vector<provider_hydrophone::PingMsgConstPtr> pings) {
+    std::vector<sonia_msgs::PingMsgConstPtr>
+    AmplitudeFilter::Process(std::vector<sonia_msgs::PingMsgConstPtr> pings) {
 
-        std::vector<provider_hydrophone::PingMsgConstPtr> filteredPings;
+        std::vector<sonia_msgs::PingMsgConstPtr> filteredPings;
 
         for (auto ping : pings) {
 

@@ -88,7 +88,7 @@ namespace proc_hydrophone {
         this->configuration->setOdometry(odom);
     }
 
-    void ProcHydrophoneNode::PingCallback(const provider_hydrophone::PingMsgConstPtr &ping) {
+    void ProcHydrophoneNode::PingCallback(const sonia_msgs::PingMsgConstPtr &ping) {
 
 
         if (ping->frequency >= 39 && ping->frequency <= 41)
