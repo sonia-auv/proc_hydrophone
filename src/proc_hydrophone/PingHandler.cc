@@ -62,7 +62,7 @@ namespace proc_hydrophone
                 pose->position = odom->pose.pose.position;
 
 
-                PingPosePtr pingPose(new PingPose);
+                sonia_msgs::PingPosePtr pingPose(new sonia_msgs::PingPose);
                 pingPose->pose = *pose;
                 pingPose->frequency = this->frequency;
                 // TODO Add amplitude and noise
