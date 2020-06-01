@@ -7,7 +7,7 @@
 
 #include <cstdint>
 #include <sonia_msgs/PingMsg.h>
-#include <proc_hydrophone/PingPose.h>
+#include <sonia_msgs/PingPose.h>
 #include <proc_hydrophone/filter_strategy/IFilterStrategy.h>
 #include <proc_hydrophone/ping_merge_strategy/IPingMergeStrategy.h>
 #include <ros/publisher.h>

@@ -41,7 +41,7 @@ namespace proc_hydrophone {
     ProcHydrophoneNode::ProcHydrophoneNode(const ros::NodeHandlePtr &nh)
         : nh_(nh),
           configuration(new Configuration()),
-          pingPosePublisher(nh_->advertise<proc_hydrophone::PingPose>("/proc_hydrophone/ping", 100))
+          pingPosePublisher(nh_->advertise<sonia_msgs::PingPose>("/proc_hydrophone/ping", 100))
     {
 
         std::shared_ptr<IFilterStrategy> keepFirstPingFilter(new KeepFirstPingFilter());
