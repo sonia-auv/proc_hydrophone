@@ -22,7 +22,7 @@ namespace proc_hydrophone
 
     PingHandler::~PingHandler() {}
 
-    void PingHandler::AddPing(const provider_hydrophone::PingMsgConstPtr &ping) {
+    void PingHandler::AddPing(const sonia_msgs::PingMsgConstPtr &ping) {
 
         auto currentStamp = ping->header.stamp;
 
@@ -62,7 +62,7 @@ namespace proc_hydrophone
                 pose->position = odom->pose.pose.position;
 
 
-                PingPosePtr pingPose(new PingPose);
+                sonia_msgs::PingPosePtr pingPose(new sonia_msgs::PingPose);
                 pingPose->pose = *pose;
                 pingPose->frequency = this->frequency;
                 // TODO Add amplitude and noise

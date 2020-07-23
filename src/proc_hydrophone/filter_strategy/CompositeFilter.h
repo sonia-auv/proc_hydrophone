@@ -15,8 +15,8 @@ namespace proc_hydrophone {
 
         virtual ~CompositeFilter();
 
-        std::vector<provider_hydrophone::PingMsgConstPtr>
-        Process(std::vector<provider_hydrophone::PingMsgConstPtr> pings) override;
+        std::vector<sonia_msgs::PingMsgConstPtr>
+        Process(std::vector<sonia_msgs::PingMsgConstPtr> pings) override;
 
     private:
         std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> filters;
