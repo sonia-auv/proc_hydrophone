@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>proc_hydrophone</name>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <description>
     The proc_hydrophone is responsible process data received from provider_hydrophone.
   </description>
