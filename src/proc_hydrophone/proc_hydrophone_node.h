@@ -28,7 +28,7 @@
 
 #include <ros/node_handle.h>
 #include <nav_msgs/Odometry.h>
-#include <sonia_msgs/PingMsg.h>
+#include <sonia_common/PingMsg.h>
 #include <proc_hydrophone/PingHandler.h>
 #include <proc_hydrophone/Configuration.h>
 
@@ -61,7 +61,7 @@ private:
     ros::Publisher pingPosePublisher;
 
     void OdomCallback(const nav_msgs::OdometryConstPtr &odom);
-    void PingCallback(const sonia_msgs::PingMsgConstPtr &ping);
+    void PingCallback(const sonia_common::PingMsgConstPtr &ping);
 
     std::shared_ptr<PingHandler> ping25kHzHandler_;
     std::shared_ptr<PingHandler> ping30kHzHandler_;

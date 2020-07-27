@@ -13,10 +13,10 @@ namespace proc_hydrophone
 
     }
 
-    std::vector<sonia_msgs::PingMsgConstPtr>
-    CompositeFilter::Process(std::vector<sonia_msgs::PingMsgConstPtr> pings) {
+    std::vector<sonia_common::PingMsgConstPtr>
+    CompositeFilter::Process(std::vector<sonia_common::PingMsgConstPtr> pings) {
 
-        std::vector<sonia_msgs::PingMsgConstPtr> filteredPings = pings;
+        std::vector<sonia_common::PingMsgConstPtr> filteredPings = pings;
 
         for (auto filter : *filters) {
             filteredPings = filter->Process(filteredPings);

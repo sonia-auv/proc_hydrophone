@@ -12,10 +12,10 @@ namespace proc_hydrophone {
 
     RatioAmpNoiseFilter::~RatioAmpNoiseFilter() {}
 
-    std::vector<sonia_msgs::PingMsgConstPtr>
-    RatioAmpNoiseFilter::Process(std::vector<sonia_msgs::PingMsgConstPtr> pings) {
+    std::vector<sonia_common::PingMsgConstPtr>
+    RatioAmpNoiseFilter::Process(std::vector<sonia_common::PingMsgConstPtr> pings) {
 
-        std::vector<sonia_msgs::PingMsgConstPtr> filteredPings;
+        std::vector<sonia_common::PingMsgConstPtr> filteredPings;
 
         for (auto ping : pings) {
 
