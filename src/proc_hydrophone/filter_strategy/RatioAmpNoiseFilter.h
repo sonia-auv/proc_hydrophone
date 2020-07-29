@@ -17,8 +17,8 @@ namespace proc_hydrophone {
 
         virtual ~RatioAmpNoiseFilter();
 
-        std::vector<sonia_msgs::PingMsgConstPtr>
-        Process(std::vector<sonia_msgs::PingMsgConstPtr> pings) override;
+        std::vector<sonia_common::PingMsgConstPtr>
+        Process(std::vector<sonia_common::PingMsgConstPtr> pings) override;
 
     private:
         uint32_t maxRatio;

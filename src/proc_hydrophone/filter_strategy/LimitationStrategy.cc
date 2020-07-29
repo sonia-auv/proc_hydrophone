@@ -15,10 +15,10 @@ namespace proc_hydrophone
 
     }
 
-    std::vector<sonia_msgs::PingMsgConstPtr>
-    LimitationStrategy::Process(std::vector<sonia_msgs::PingMsgConstPtr> pings) {
+    std::vector<sonia_common::PingMsgConstPtr>
+    LimitationStrategy::Process(std::vector<sonia_common::PingMsgConstPtr> pings) {
 
-        std::vector<sonia_msgs::PingMsgConstPtr> filteredPings;
+        std::vector<sonia_common::PingMsgConstPtr> filteredPings;
 
         for (auto ping : pings)
         {

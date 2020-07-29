@@ -10,10 +10,10 @@ namespace proc_hydrophone
 
     KeepFirstPingFilter::~KeepFirstPingFilter() {}
 
-    std::vector<sonia_msgs::PingMsgConstPtr>
-    KeepFirstPingFilter::Process(std::vector<sonia_msgs::PingMsgConstPtr> pings) {
+    std::vector<sonia_common::PingMsgConstPtr>
+    KeepFirstPingFilter::Process(std::vector<sonia_common::PingMsgConstPtr> pings) {
 
-        std::vector<sonia_msgs::PingMsgConstPtr> filteredPings;
+        std::vector<sonia_common::PingMsgConstPtr> filteredPings;
 
         auto size = pings.size();
 
@@ -37,5 +37,3 @@ namespace proc_hydrophone
 
     }
 }
-
-
