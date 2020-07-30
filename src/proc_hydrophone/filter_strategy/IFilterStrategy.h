@@ -6,14 +6,14 @@
 #define PROC_HYDROPHONE_IFILTERSTRATEGY_H
 
 #include <geometry_msgs/Quaternion.h>
-#include <sonia_msgs/PingMsg.h>
+#include <sonia_common/PingMsg.h>
 
 namespace proc_hydrophone
 {
     class IFilterStrategy
     {
     public:
-        virtual std::vector<sonia_msgs::PingMsgConstPtr> Process(std::vector<sonia_msgs::PingMsgConstPtr> pings) = 0;
+        virtual std::vector<sonia_common::PingMsgConstPtr> Process(std::vector<sonia_common::PingMsgConstPtr> pings) = 0;
     };
 }
 

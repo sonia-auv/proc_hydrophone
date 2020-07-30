@@ -6,7 +6,7 @@
 #define PROC_HYDROPHONE_IPINGMERGESTRATEGY_H
 
 #include <geometry_msgs/Quaternion.h>
-#include <sonia_msgs/PingMsg.h>
+#include <sonia_common/PingMsg.h>
 
 namespace proc_hydrophone
 {
@@ -14,7 +14,7 @@ namespace proc_hydrophone
     {
     public:
 
-        virtual geometry_msgs::QuaternionPtr Merge(std::vector<sonia_msgs::PingMsgConstPtr> pings) = 0;
+        virtual geometry_msgs::QuaternionPtr Merge(std::vector<sonia_common::PingMsgConstPtr> pings) = 0;
 
     };
 }

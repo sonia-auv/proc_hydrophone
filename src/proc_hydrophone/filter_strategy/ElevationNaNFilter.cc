@@ -13,10 +13,10 @@ namespace proc_hydrophone
 
     }
 
-    std::vector<sonia_msgs::PingMsgConstPtr>
-    ElevationNaNFilter::Process(std::vector<sonia_msgs::PingMsgConstPtr> pings) {
+    std::vector<sonia_common::PingMsgConstPtr>
+    ElevationNaNFilter::Process(std::vector<sonia_common::PingMsgConstPtr> pings) {
 
-        std::vector<sonia_msgs::PingMsgConstPtr> filteredPings;
+        std::vector<sonia_common::PingMsgConstPtr> filteredPings;
 
         for (auto ping : pings)
         {
