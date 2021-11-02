@@ -29,8 +29,8 @@
 #include <ros/node_handle.h>
 #include <nav_msgs/Odometry.h>
 #include <sonia_common/PingMsg.h>
-#include <proc_hydrophone/PingHandler.h>
-#include <proc_hydrophone/Configuration.h>
+#include "PingHandler.h"
+#include "Configuration.h"
 
 namespace proc_hydrophone {
 

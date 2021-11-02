@@ -54,7 +54,7 @@ file(GLOB_RECURSE proc_hydrophone_FILES
         "${proc_hydrophone_SRC_DIR}/*.h")
 
 list(REMOVE_ITEM proc_hydrophone_FILES
-        ${CMAKE_CURRENT_SOURCE_DIR}/${proc_hydrophone_SRC_DIR}/${PROJECT_NAME}/main.cc)
+        ${CMAKE_CURRENT_SOURCE_DIR}/${proc_hydrophone_SRC_DIR}/main.cc)
 
 include_directories(
         ${catkin_INCLUDE_DIRS}
@@ -64,7 +64,7 @@ include_directories(
 #==========================================================================
 # C R E A T E   E X E C U T A B L E
 
-add_executable(${PROJECT_NAME}_node ${proc_hydrophone_SRC_DIR}/${PROJECT_NAME}/main.cc ${proc_hydrophone_FILES} src/proc_hydrophone/filter_strategy/RatioAmpNoiseFilter.cc src/proc_hydrophone/filter_strategy/RatioAmpNoiseFilter.h)
+add_executable(${PROJECT_NAME}_node ${proc_hydrophone_SRC_DIR}/main.cc ${proc_hydrophone_FILES})
 target_link_libraries(${PROJECT_NAME}_node
         ${catkin_LIBRARIES}
         yaml-cpp

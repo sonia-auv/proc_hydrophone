@@ -8,8 +8,8 @@
 #include <cstdint>
 #include <sonia_common/PingMsg.h>
 #include <sonia_common/PingPose.h>
-#include <proc_hydrophone/filter_strategy/IFilterStrategy.h>
-#include <proc_hydrophone/ping_merge_strategy/IPingMergeStrategy.h>
+#include <filter_strategy/IFilterStrategy.h>
+#include <ping_merge_strategy/IPingMergeStrategy.h>
 #include <ros/publisher.h>
 #include "Configuration.h"
 

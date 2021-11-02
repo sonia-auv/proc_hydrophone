@@ -5,7 +5,7 @@
 #ifndef PROC_HYDROPHONE_RATIOAMPNOISEFILTER_H
 #define PROC_HYDROPHONE_RATIOAMPNOISEFILTER_H
 
-#include <proc_hydrophone/filter_strategy/IFilterStrategy.h>
+#include <filter_strategy/IFilterStrategy.h>
 #include <ros/ros.h>
 
 namespace proc_hydrophone {

@@ -23,13 +23,13 @@
  * along with S.O.N.I.A. software. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <proc_hydrophone/filter_strategy/CompositeFilter.h>
-#include <proc_hydrophone/ping_merge_strategy/MeanMergeStrategy.h>
-#include <proc_hydrophone/filter_strategy/KeepFirstPingFilter.h>
-#include <proc_hydrophone/filter_strategy/ElevationNaNFilter.h>
-#include <proc_hydrophone/filter_strategy/AmplitudeFilter.h>
-#include <proc_hydrophone/filter_strategy/RatioAmpNoiseFilter.h>
-#include "proc_hydrophone/proc_hydrophone_node.h"
+#include <filter_strategy/CompositeFilter.h>
+#include <ping_merge_strategy/MeanMergeStrategy.h>
+#include <filter_strategy/KeepFirstPingFilter.h>
+#include <filter_strategy/ElevationNaNFilter.h>
+#include <filter_strategy/AmplitudeFilter.h>
+#include <filter_strategy/RatioAmpNoiseFilter.h>
+#include "proc_hydrophone_node.h"
 
 namespace proc_hydrophone {
 

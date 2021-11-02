@@ -2,7 +2,7 @@
 // Created by coumarc9 on 7/16/17.
 //
 
-#include <proc_hydrophone/filter_strategy/LimitationStrategy.h>
+#include "LimitationStrategy.h"
 
 namespace proc_hydrophone
 {

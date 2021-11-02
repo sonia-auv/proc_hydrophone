@@ -5,7 +5,7 @@
 #ifndef PROC_HYDROPHONE_AVERAGEMERGESTRATEGY_H
 #define PROC_HYDROPHONE_AVERAGEMERGESTRATEGY_H
 
-#include <proc_hydrophone/ping_merge_strategy/IPingMergeStrategy.h>
+#include <ping_merge_strategy/IPingMergeStrategy.h>
 
 namespace proc_hydrophone {
 

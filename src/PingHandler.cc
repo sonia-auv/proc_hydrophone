@@ -3,7 +3,7 @@
 //
 
 #include <geometry_msgs/Pose.h>
-#include "proc_hydrophone/PingHandler.h"
+#include "PingHandler.h"
 
 namespace proc_hydrophone
 {
