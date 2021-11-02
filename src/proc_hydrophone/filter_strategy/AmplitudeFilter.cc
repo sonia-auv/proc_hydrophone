@@ -12,7 +12,7 @@ namespace proc_hydrophone {
 
     AmplitudeFilter::~AmplitudeFilter() {}
 
-    std::vector<sonia_common::PingMsgConstPtr>
+/*    std::vector<sonia_common::PingMsgConstPtr>
     AmplitudeFilter::Process(std::vector<sonia_common::PingMsgConstPtr> pings) {
 
         std::vector<sonia_common::PingMsgConstPtr> filteredPings;
@@ -31,5 +31,5 @@ namespace proc_hydrophone {
                                                                           << filteredPings.size());
 
         return filteredPings;
-    }
+    }*/
 }

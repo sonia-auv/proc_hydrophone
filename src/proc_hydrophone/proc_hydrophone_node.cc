@@ -46,8 +46,8 @@ namespace proc_hydrophone {
 
         std::shared_ptr<IFilterStrategy> keepFirstPingFilter(new KeepFirstPingFilter());
         std::shared_ptr<IFilterStrategy> elevationNaNFilter(new ElevationNaNFilter());
-        std::shared_ptr<IFilterStrategy> amplitudeFilter(new AmplitudeFilter(20000000, 375000));
-        std::shared_ptr<IFilterStrategy> ratioAmpNoiseFilter(new RatioAmpNoiseFilter(10, 8));
+        //std::shared_ptr<IFilterStrategy> amplitudeFilter(new AmplitudeFilter(20000000, 375000));
+        //std::shared_ptr<IFilterStrategy> ratioAmpNoiseFilter(new RatioAmpNoiseFilter(10, 8));
 
         std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> filters(new std::vector<std::shared_ptr<IFilterStrategy>>);
         //filters->push_back(keepFirstPingFilter);
