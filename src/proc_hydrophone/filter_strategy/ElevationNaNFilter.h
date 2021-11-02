@@ -9,7 +9,6 @@
 #include <ros/ros.h>
 namespace proc_hydrophone
 {
-
     class ElevationNaNFilter : public IFilterStrategy {
 
     public:

@@ -7,13 +7,9 @@
 namespace proc_hydrophone
 {
 
-    LimitationStrategy::LimitationStrategy() {
+    LimitationStrategy::LimitationStrategy() {}
 
-    }
-
-    LimitationStrategy::~LimitationStrategy() {
-
-    }
+    LimitationStrategy::~LimitationStrategy() {}
 
     std::vector<sonia_common::PingMsgConstPtr>
     LimitationStrategy::Process(std::vector<sonia_common::PingMsgConstPtr> pings) {
@@ -42,7 +38,7 @@ namespace proc_hydrophone
 
         }
 
-        ROS_DEBUG_STREAM("Limitation strategy result Previous : " << pings.size() << " After : " << filteredPings.size());
+        ROS_INFO_STREAM("Limitation strategy result Previous : " << pings.size() << " After : " << filteredPings.size());
 
         return filteredPings;
     }

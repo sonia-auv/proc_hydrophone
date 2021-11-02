@@ -29,7 +29,7 @@ namespace proc_hydrophone
         // If new group, process
         if ((currentStamp - lastStamp).sec >= 1)
         {
-
+            ROS_INFO_STREAM("Filtering received pings");
             auto pingsValidated = filterStrategy->Process(pendingPings);
 
             if (pingsValidated.size() > 0)
@@ -37,11 +37,10 @@ namespace proc_hydrophone
 
                 for (auto toto : pingsValidated)
                 {
-                    ROS_DEBUG_STREAM("Ping received : " << *toto);
+                    ROS_INFO_STREAM("Ping received : " << *toto);
                 }
 
-
-
+                ROS_INFO_STREAM("Merging received pings");
                 auto orientation = pingMergeStrategy->Merge(pingsValidated);
                 // TODO Use odom to create Pose then publish it
 

@@ -9,9 +9,7 @@ namespace proc_hydrophone
 
     ElevationNaNFilter::ElevationNaNFilter() {}
 
-    ElevationNaNFilter::~ElevationNaNFilter() {
-
-    }
+    ElevationNaNFilter::~ElevationNaNFilter() {}
 
     std::vector<sonia_common::PingMsgConstPtr>
     ElevationNaNFilter::Process(std::vector<sonia_common::PingMsgConstPtr> pings) {
@@ -20,23 +18,20 @@ namespace proc_hydrophone
 
         for (auto ping : pings)
         {
-
             auto elevation = ping->elevation;
 
             if (elevation == elevation) // Not NaN
             {
                 filteredPings.push_back(ping);
-                ROS_DEBUG("Ping elevation has value. Ping is accepted");
+                ROS_INFO_STREAM("Ping elevation has value. Ping is accepted");
             }
             else
             {
-                ROS_DEBUG("Ping elevation was NAN. Ping is rejected");
+                ROS_INFO_STREAM("Ping elevation was NAN. Ping is rejected");
             }
-
-
         }
 
-        ROS_DEBUG_STREAM("ElevationNaNFilter strategy result Previous : " << pings.size() << " After : " << filteredPings.size());
+        ROS_INFO_STREAM("ElevationNaNFilter strategy result Previous : " << pings.size() << " After : " << filteredPings.size());
 
         return filteredPings;
     }

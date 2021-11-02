@@ -67,9 +67,6 @@ private:
     std::shared_ptr<PingHandler> ping30kHzHandler_;
     std::shared_ptr<PingHandler> ping35kHzHandler_;
     std::shared_ptr<PingHandler> ping40kHzHandler_;
-
-
-
 };
 
 }  // namespace proc_hydrophone

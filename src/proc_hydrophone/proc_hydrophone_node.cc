@@ -50,10 +50,10 @@ namespace proc_hydrophone {
         std::shared_ptr<IFilterStrategy> ratioAmpNoiseFilter(new RatioAmpNoiseFilter(10, 8));
 
         std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> filters(new std::vector<std::shared_ptr<IFilterStrategy>>);
-        filters->push_back(keepFirstPingFilter);
-        filters->push_back(amplitudeFilter);
-        //filters->push_back(ratioAmpNoiseFilter);
+        //filters->push_back(keepFirstPingFilter);
         filters->push_back(elevationNaNFilter);
+        //filters->push_back(amplitudeFilter);
+        //filters->push_back(ratioAmpNoiseFilter);
 
         std::shared_ptr<IFilterStrategy> filterStrategy(new CompositeFilter(filters));
 

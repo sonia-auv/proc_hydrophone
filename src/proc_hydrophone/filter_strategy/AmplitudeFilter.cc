@@ -25,11 +25,9 @@ namespace proc_hydrophone {
             {
                 filteredPings.push_back(ping);
             }
-
-
         }
 
-        ROS_DEBUG_STREAM("ElevationNaNFilter strategy result Previous : " << pings.size() << " After : "
+        ROS_INFO_STREAM("ElevationNaNFilter strategy result Previous : " << pings.size() << " After : "
                                                                           << filteredPings.size());
 
         return filteredPings;

@@ -23,7 +23,7 @@ namespace proc_hydrophone
         }
         else
         {
-            ROS_DEBUG_STREAM("Vector contain less element than asked. " << size << "elements will be copied");
+            ROS_INFO_STREAM("Vector contain less element than asked. " << size << "elements will be copied");
         }
 
         for (u_int32_t i = 0; i < size; ++i) {
@@ -31,7 +31,7 @@ namespace proc_hydrophone
         }
 
 
-        ROS_DEBUG_STREAM("KeepFirstPingFilter strategy result Previous : " << size << " After : " << filteredPings.size());
+        ROS_INFO_STREAM("KeepFirstPingFilter strategy result Previous : " << size << " After : " << filteredPings.size());
 
         return filteredPings;
 

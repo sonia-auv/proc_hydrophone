@@ -27,7 +27,4 @@ namespace proc_hydrophone {
 
 }
 
-
-
-
 #endif //PROC_HYDROPHONE_RATIOAMPNOISEFILTER_H
