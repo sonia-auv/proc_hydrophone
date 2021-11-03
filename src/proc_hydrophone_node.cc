@@ -51,7 +51,7 @@ namespace proc_hydrophone {
 
         std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> filters(new std::vector<std::shared_ptr<IFilterStrategy>>);
         //filters->push_back(keepFirstPingFilter);
-        filters->push_back(elevationNaNFilter);
+        //filters->push_back(elevationNaNFilter);
         //filters->push_back(amplitudeFilter);
         //filters->push_back(ratioAmpNoiseFilter);
 
@@ -74,13 +74,15 @@ namespace proc_hydrophone {
     // M E T H O D   S E C T I O N
     //------------------------------------------------------------------------------
     //
-    void ProcHydrophoneNode::Spin() {
-
-      ros::Rate r(15);  // 15 hz
-      while (ros::ok()) {
-        ros::spinOnce();
-        r.sleep();
-      }
+    void ProcHydrophoneNode::Spin()
+    {
+        ros::Rate r(15);  // 15 hz
+        
+        while (ros::ok()) 
+        {
+            ros::spinOnce();
+            r.sleep();
+        }
     }
 
     void ProcHydrophoneNode::OdomCallback(const nav_msgs::OdometryConstPtr &odom) {
@@ -91,19 +93,19 @@ namespace proc_hydrophone {
     void ProcHydrophoneNode::PingCallback(const sonia_common::PingMsgConstPtr &ping) {
 
 
-        if (ping->frequency >= 39 && ping->frequency <= 41)
+        if (ping->frequency >= 39000 && ping->frequency <= 41000)
         {
             ping40kHzHandler_->AddPing(ping);
         }
-        else if (ping->frequency >= 34 && ping->frequency <= 36)
+        else if (ping->frequency >= 34000 && ping->frequency <= 36000)
         {
             ping35kHzHandler_->AddPing(ping);
         }
-        else if (ping->frequency >= 29 && ping->frequency <= 31)
+        else if (ping->frequency >= 29000 && ping->frequency <= 31000)
         {
             ping30kHzHandler_->AddPing(ping);
         }
-        else if (ping->frequency >= 24 && ping->frequency <= 26)
+        else if (ping->frequency >= 24000 && ping->frequency <= 26000)
         {
             ping25kHzHandler_->AddPing(ping);
         }
