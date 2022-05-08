@@ -20,6 +20,8 @@ namespace proc_hydrophone
 
     void PingHandler::AddPing(const sonia_common::PingMsgConstPtr &ping)
     {
+        std::vector<sonia_common::PingMsgConstPtr> newping;
+        
         ROS_DEBUG_STREAM("Filtering received ping");
 
         newping.push_back(ping);

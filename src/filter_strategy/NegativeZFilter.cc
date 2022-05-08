@@ -39,14 +39,15 @@ namespace proc_hydrophone
     std::vector<sonia_common::PingMsgConstPtr>
     NegativeZFilter::Process(std::vector<sonia_common::PingMsgConstPtr> pings)
     {
-
         std::vector<sonia_common::PingMsgConstPtr> filteredPings;
 
-        auto z = pings->z;
+        if(pings.empty()) return filteredPings;
+
+        auto z = pings.front()->z;
 
         if (z >= 0)
         {
-            filteredPings.push_back(ping);
+            filteredPings.push_back(pings.front());
             ROS_DEBUG_STREAM("Ping has Z positive. Ping is accepted");
         }
         else

@@ -26,7 +26,8 @@
 
 namespace proc_hydrophone
 {
-    VectorNormFilter::VectorNormFilter()
+    VectorNormFilter::VectorNormFilter(uint32_t min_norm)
+        : minimum_norm(min_norm)
     {
         
     }
@@ -39,19 +40,24 @@ namespace proc_hydrophone
     std::vector<sonia_common::PingMsgConstPtr>
     VectorNormFilter::Process(std::vector<sonia_common::PingMsgConstPtr> pings)
     {
-
         std::vector<sonia_common::PingMsgConstPtr> filteredPings;
 
+        if(pings.empty()) return filteredPings;
+
+        auto x = pings.front()->x;
+        auto y = pings.front()->y;
         auto z = pings.front()->z;
 
-        if (z >= 0)
+        float norm = sqrt(x * x + y * y + z * z);
+
+        if (norm >= minimum_norm)
         {
             filteredPings.push_back(pings.front());
-            ROS_DEBUG_STREAM("Ping has Z positive. Ping is accepted");
+            ROS_DEBUG_STREAM("Ping has a norm higher than" << minimum_norm << ". Ping is accepted");
         }
         else
         {
-            ROS_ERROR_STREAM("Ping has Z negative. Ping rejeted");
+            ROS_ERROR_STREAM("Ping has a norm lower than" << minimum_norm << ". Ping rejeted");
         }
 
         return filteredPings;

@@ -25,7 +25,6 @@ namespace proc_hydrophone
 
         std::shared_ptr<IFilterStrategy> filterStrategy;
         const ros::Publisher pingPosePublisher;
-        std::vector<sonia_common::PingMsgConstPtr> newping;
 
     };
 }

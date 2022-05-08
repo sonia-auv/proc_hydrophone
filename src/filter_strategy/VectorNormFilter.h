@@ -23,23 +23,26 @@
  * along with S.O.N.I.A. software. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROC_HYDROPHONE_NEGATIVEZFILTER_H
-#define PROC_HYDROPHONE_NEGATIVEZFILTER_H
+#ifndef PROC_HYDROPHONE_VECTORNORMFILTER_H
+#define PROC_HYDROPHONE_VECTORNORMFILTER_H
 
 #include <filter_strategy/IFilterStrategy.h>
 
 namespace proc_hydrophone
 {
-    class VectorNormFilter : public IFilterStrategy {
-
+    class VectorNormFilter : public IFilterStrategy
+    {
     public:
-        VectorNormFilter();
+        VectorNormFilter(uint32_t min_norm = 500);
         virtual ~VectorNormFilter();
 
         std::vector<sonia_common::PingMsgConstPtr>
         Process(std::vector<sonia_common::PingMsgConstPtr> pings) override;
 
+    private:
+
+        uint32_t minimum_norm;
     };
 
 }
-#endif //PROC_HYDROPHONE_NEGATIVEZFILTER_H
+#endif //PROC_HYDROPHONE_VECTORNORMFILTER_H
