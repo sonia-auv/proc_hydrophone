@@ -25,6 +25,15 @@ namespace proc_hydrophone
 
         newping.push_back(ping);
         std::vector<sonia_common::PingMsgConstPtr> filteredPing = filterStrategy->Process(newping);
+
+        if(!filteredPing.empty())
+        {
+            pingPosePublisher.publish(ping);
+        }
+        else
+        {
+            ROS_WARM_STREAM("Ping filtered out");
+        }
         
         // auto currentStamp = ping->header.stamp;
 

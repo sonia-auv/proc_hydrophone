@@ -6,7 +6,6 @@
 #define PROC_HYDROPHONE_COMPOSITEFILTER_H
 
 #include <filter_strategy/IFilterStrategy.h>
-#include <ros/ros.h>
 
 namespace proc_hydrophone {
     class CompositeFilter : public IFilterStrategy{

@@ -6,7 +6,7 @@
 #define PROC_HYDROPHONE_ELEVATIONNANFILTER_H
 
 #include <filter_strategy/IFilterStrategy.h>
-#include <ros/ros.h>
+
 namespace proc_hydrophone
 {
     class ElevationNaNFilter : public IFilterStrategy {
