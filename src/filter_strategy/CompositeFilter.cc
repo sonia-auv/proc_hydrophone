@@ -7,19 +7,25 @@
 namespace proc_hydrophone
 {
 
-    CompositeFilter::CompositeFilter(std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> filters) : filters(filters) {}
+    CompositeFilter::CompositeFilter(std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> filters) 
+        : filters(filters) 
+    {
 
-    CompositeFilter::~CompositeFilter() {}
+    }
 
-    std::vector<sonia_common::PingMsgConstPtr>
-    CompositeFilter::Process(std::vector<sonia_common::PingMsgConstPtr> pings) {
+    CompositeFilter::~CompositeFilter()
+    {
 
-        std::vector<sonia_common::PingMsgConstPtr> filteredPings = pings;
+    }
+
+    std::vector<sonia_common::PingMsgConstPtr> CompositeFilter::Process(std::vector<sonia_common::PingMsgConstPtr> ping) {
+
+        std::vector<sonia_common::PingMsgConstPtr> filteredPing = ping;
 
         for (auto filter : *filters) {
-            filteredPings = filter->Process(filteredPings);
+            filteredPings = filter->Process(filteredPing);
         }
 
-        return filteredPings;
+        return filteredPing;
     }
 }

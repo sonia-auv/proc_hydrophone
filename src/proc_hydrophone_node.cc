@@ -49,10 +49,10 @@ namespace proc_hydrophone {
         pingPosePublisher = nh_->adverstive<sonia_common::PingMsg>("/proc_hydrophone/ping", 100);
 
         // Filtering strategies
-        std::shared_ptr<IFilterStrategy> keepFirstPingFilter(new KeepFirstPingFilter());
-        std::shared_ptr<IFilterStrategy> elevationNaNFilter(new ElevationNaNFilter());
-        //std::shared_ptr<IFilterStrategy> amplitudeFilter(new AmplitudeFilter(20000000, 375000));
-        //std::shared_ptr<IFilterStrategy> ratioAmpNoiseFilter(new RatioAmpNoiseFilter(10, 8));
+        // std::shared_ptr<IFilterStrategy> keepFirstPingFilter(new KeepFirstPingFilter());
+        // std::shared_ptr<IFilterStrategy> elevationNaNFilter(new ElevationNaNFilter());
+        // std::shared_ptr<IFilterStrategy> amplitudeFilter(new AmplitudeFilter(20000000, 375000));
+        // std::shared_ptr<IFilterStrategy> ratioAmpNoiseFilter(new RatioAmpNoiseFilter(10, 8));
 
         std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> filters(new std::vector<std::shared_ptr<IFilterStrategy>>);
         //filters->push_back(keepFirstPingFilter);
@@ -87,26 +87,9 @@ namespace proc_hydrophone {
         }
     }
 
-    void ProcHydrophoneNode::PingCallback(const sonia_common::PingMsgConstPtr &ping) {
-
-
-        if (ping->frequency >= 39000 && ping->frequency <= 41000)
-        {
-            ping40kHzHandler_->AddPing(ping);
-        }
-        else if (ping->frequency >= 34000 && ping->frequency <= 36000)
-        {
-            ping35kHzHandler_->AddPing(ping);
-        }
-        else if (ping->frequency >= 29000 && ping->frequency <= 31000)
-        {
-            ping30kHzHandler_->AddPing(ping);
-        }
-        else if (ping->frequency >= 24000 && ping->frequency <= 26000)
-        {
-            ping25kHzHandler_->AddPing(ping);
-        }
-
+    void ProcHydrophoneNode::PingCallback(const sonia_common::PingMsgConstPtr &ping) 
+    {
+        pingHandler->AddPing(ping);
     }
 
 }  // namespace proc_hydrophone

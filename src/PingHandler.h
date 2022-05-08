@@ -7,9 +7,7 @@
 
 #include <cstdint>
 #include <sonia_common/PingMsg.h>
-#include <sonia_common/PingPose.h>
 #include <filter_strategy/IFilterStrategy.h>
-#include <ping_merge_strategy/IPingMergeStrategy.h>
 #include <ros/ros.h>
 
 namespace proc_hydrophone
@@ -27,6 +25,7 @@ namespace proc_hydrophone
 
         std::shared_ptr<IFilterStrategy> filterStrategy;
         const ros::Publisher pingPosePublisher;
+        std::vector<sonia_common::PingMsgConstPtr> newping;
 
     };
 }

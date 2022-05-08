@@ -2,80 +2,82 @@
 // Created by coumarc9 on 7/16/17.
 //
 
-#include <geometry_msgs/Pose.h>
 #include "PingHandler.h"
 
 namespace proc_hydrophone
 {
     PingHandler::PingHandler(uint8_t frequency, std::shared_ptr<IFilterStrategy> filterStrategy,
-                             std::shared_ptr<IPingMergeStrategy> pingMergeStrategy,
-                             std::shared_ptr<Configuration> &configuration,
                              ros::Publisher &pingPosePublisher)
-        : frequency(frequency),
-          filterStrategy(filterStrategy),
-          pingMergeStrategy(pingMergeStrategy),
-          configuration(configuration),
+        : filterStrategy(filterStrategy),
           pingPosePublisher(pingPosePublisher)
     {
 
     }
 
-    PingHandler::~PingHandler() {}
+    PingHandler::~PingHandler()
+    {
+
+    }
 
     void PingHandler::AddPing(const sonia_common::PingMsgConstPtr &ping) {
 
-        auto currentStamp = ping->header.stamp;
+        ROS_DEBUG_STREAM("Filtering received ping");
 
-        // If new group, process
-        if ((currentStamp - lastStamp).sec >= 1)
-        {
-            ROS_INFO_STREAM("Filtering received pings");
-            auto pingsValidated = filterStrategy->Process(pendingPings);
+        newping.push_back(ping);
+        std::vector<sonia_common::PingMsgConstPtr> filteredPing = filterStrategy->Process(newping);
+        
+        // auto currentStamp = ping->header.stamp;
 
-            if (pingsValidated.size() > 0)
-            {
+        // // If new group, process
+        // if ((currentStamp - lastStamp).sec >= 1)
+        // {
+        //     ROS_INFO_STREAM("Filtering received pings");
+        //     auto pingsValidated = filterStrategy->Process(pendingPings);
 
-                for (auto toto : pingsValidated)
-                {
-                    ROS_INFO_STREAM("Ping received : " << *toto);
-                }
+        //     if (pingsValidated.size() > 0)
+        //     {
 
-                ROS_INFO_STREAM("Merging received pings");
-                auto orientation = pingMergeStrategy->Merge(pingsValidated);
-                // TODO Use odom to create Pose then publish it
+        //         for (auto toto : pingsValidated)
+        //         {
+        //             ROS_INFO_STREAM("Ping received : " << *toto);
+        //         }
 
-                auto odom = configuration->getOdometry();
+        //         ROS_INFO_STREAM("Merging received pings");
+        //         auto orientation = pingMergeStrategy->Merge(pingsValidated);
+        //         // TODO Use odom to create Pose then publish it
 
-                // TODO Configuration
-                auto zBase = odom->pose.pose.orientation.z * M_PI / 180;
+        //         auto odom = configuration->getOdometry();
 
-                auto newZ = fmod(zBase + offset - orientation->z, 2 * M_PI);
+        //         // TODO Configuration
+        //         auto zBase = odom->pose.pose.orientation.z * M_PI / 180;
 
-                while (newZ < 0) // Make sure z is positive
-                    newZ += 2 * M_PI;
+        //         auto newZ = fmod(zBase + offset - orientation->z, 2 * M_PI);
 
-                orientation->z = newZ;
+        //         while (newZ < 0) // Make sure z is positive
+        //             newZ += 2 * M_PI;
 
-                geometry_msgs::PosePtr pose(new geometry_msgs::Pose);
-                pose->orientation = *orientation;
-                pose->position = odom->pose.pose.position;
+        //         orientation->z = newZ;
+
+        //         geometry_msgs::PosePtr pose(new geometry_msgs::Pose);
+        //         pose->orientation = *orientation;
+        //         pose->position = odom->pose.pose.position;
 
 
-                sonia_common::PingPosePtr pingPose(new sonia_common::PingPose);
-                pingPose->pose = *pose;
-                pingPose->frequency = this->frequency;
-                // TODO Add amplitude and noise
+        //         sonia_common::PingPosePtr pingPose(new sonia_common::PingPose);
+        //         pingPose->pose = *pose;
+        //         pingPose->frequency = this->frequency;
+        //         // TODO Add amplitude and noise
 
-                pingPosePublisher.publish(pingPose);
+        //         pingPosePublisher.publish(pingPose);
 
-            }
+        //     }
 
-            pendingPings.clear();
+        //     pendingPings.clear();
 
-            lastStamp = currentStamp;
-        }
+        //     lastStamp = currentStamp;
+        // }
 
-        pendingPings.push_back(ping);
+        // pendingPings.push_back(ping);
 
     }
 }
