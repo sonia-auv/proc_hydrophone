@@ -1,5 +1,5 @@
 /**
- * \file	NegativeZFilter.cc
+ * \file	VectorNormFilter.cc
  * \author	Francis Alonzo <francisalonzo@gmail.com>
  * \date	07/05/2022
  *
@@ -22,31 +22,31 @@
  * You should have received a copy of the GNU General Public License
  * along with S.O.N.I.A. software. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "NegativeZFilter.h"
+#include "VectorNormFilter.h"
 
 namespace proc_hydrophone
 {
-    NegativeZFilter::NegativeZFilter()
+    VectorNormFilter::VectorNormFilter()
     {
         
     }
 
-    NegativeZFilter::~NegativeZFilter()
+    VectorNormFilter::~VectorNormFilter()
     {
 
     }
 
     std::vector<sonia_common::PingMsgConstPtr>
-    NegativeZFilter::Process(std::vector<sonia_common::PingMsgConstPtr> pings)
+    VectorNormFilter::Process(std::vector<sonia_common::PingMsgConstPtr> pings)
     {
 
         std::vector<sonia_common::PingMsgConstPtr> filteredPings;
 
-        auto z = pings->z;
+        auto z = pings.front()->z;
 
         if (z >= 0)
         {
-            filteredPings.push_back(ping);
+            filteredPings.push_back(pings.front());
             ROS_DEBUG_STREAM("Ping has Z positive. Ping is accepted");
         }
         else

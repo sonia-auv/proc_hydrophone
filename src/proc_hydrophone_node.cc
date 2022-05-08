@@ -25,6 +25,7 @@
 
 #include <filter_strategy/CompositeFilter.h>
 #include <filter_strategy/NegativeZFilter.h>
+#include <filter_strategy/VectorNormFilter.h>
 #include <filter_strategy/KeepFirstPingFilter.h>
 #include <filter_strategy/ElevationNaNFilter.h>
 #include "proc_hydrophone_node.h"

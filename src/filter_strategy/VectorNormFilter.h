@@ -1,5 +1,5 @@
 /**
- * \file	NegativeZFilter.cc
+ * \file	VectorNormFilter.h
  * \author	Francis Alonzo <francisalonzo@gmail.com>
  * \date	07/05/2022
  *
@@ -22,38 +22,24 @@
  * You should have received a copy of the GNU General Public License
  * along with S.O.N.I.A. software. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "NegativeZFilter.h"
+
+#ifndef PROC_HYDROPHONE_NEGATIVEZFILTER_H
+#define PROC_HYDROPHONE_NEGATIVEZFILTER_H
+
+#include <filter_strategy/IFilterStrategy.h>
 
 namespace proc_hydrophone
 {
-    NegativeZFilter::NegativeZFilter()
-    {
-        
-    }
+    class VectorNormFilter : public IFilterStrategy {
 
-    NegativeZFilter::~NegativeZFilter()
-    {
+    public:
+        VectorNormFilter();
+        virtual ~VectorNormFilter();
 
-    }
+        std::vector<sonia_common::PingMsgConstPtr>
+        Process(std::vector<sonia_common::PingMsgConstPtr> pings) override;
 
-    std::vector<sonia_common::PingMsgConstPtr>
-    NegativeZFilter::Process(std::vector<sonia_common::PingMsgConstPtr> pings)
-    {
+    };
 
-        std::vector<sonia_common::PingMsgConstPtr> filteredPings;
-
-        auto z = pings->z;
-
-        if (z >= 0)
-        {
-            filteredPings.push_back(ping);
-            ROS_DEBUG_STREAM("Ping has Z positive. Ping is accepted");
-        }
-        else
-        {
-            ROS_ERROR_STREAM("Ping has Z negative. Ping rejeted");
-        }
-
-        return filteredPings;
-    }
 }
+#endif //PROC_HYDROPHONE_NEGATIVEZFILTER_H
