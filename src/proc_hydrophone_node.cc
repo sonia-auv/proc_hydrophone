@@ -39,11 +39,16 @@ namespace proc_hydrophone {
     //------------------------------------------------------------------------------
     //
     ProcHydrophoneNode::ProcHydrophoneNode(const ros::NodeHandlePtr &nh)
-        : nh_(nh),
-          configuration(new Configuration()),
-          pingPosePublisher(nh_->advertise<sonia_common::PingPose>("/proc_hydrophone/ping", 100))
+        : nh_(nh)
     {
 
+        // Subscriber
+        providerHydrophoneSubscriber = nh_->subscribe("/provider_hydrophone/ping", 100, &ProcHydrophoneNode::PingCallback, this);
+
+        // Publishers
+        pingPosePublisher = nh_->adverstive<sonia_common::PingMsg>("/proc_hydrophone/ping", 100);
+
+        // Filtering strategies
         std::shared_ptr<IFilterStrategy> keepFirstPingFilter(new KeepFirstPingFilter());
         std::shared_ptr<IFilterStrategy> elevationNaNFilter(new ElevationNaNFilter());
         //std::shared_ptr<IFilterStrategy> amplitudeFilter(new AmplitudeFilter(20000000, 375000));
@@ -57,13 +62,10 @@ namespace proc_hydrophone {
 
         std::shared_ptr<IFilterStrategy> filterStrategy(new CompositeFilter(filters));
 
-        ping25kHzHandler_ = std::shared_ptr<PingHandler>(new PingHandler(25, filterStrategy, std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher));
-        ping30kHzHandler_ = std::shared_ptr<PingHandler>(new PingHandler(30, filterStrategy, std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher));
-        ping35kHzHandler_ = std::shared_ptr<PingHandler>(new PingHandler(35, filterStrategy, std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher));
-        ping40kHzHandler_ = std::shared_ptr<PingHandler>(new PingHandler(40, filterStrategy, std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher));
-
-        odomSubscriber = nh_->subscribe("/proc_navigation/odom", 100, &ProcHydrophoneNode::OdomCallback, this);
-        providerHydrophoneSubscriber = nh_->subscribe("/provider_hydrophone/ping", 100, &ProcHydrophoneNode::PingCallback, this);
+        // ping25kHzHandler_ = std::shared_ptr<PingHandler>(new PingHandler(25, filterStrategy, std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher));
+        // ping30kHzHandler_ = std::shared_ptr<PingHandler>(new PingHandler(30, filterStrategy, std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher));
+        // ping35kHzHandler_ = std::shared_ptr<PingHandler>(new PingHandler(35, filterStrategy, std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher));
+        // ping40kHzHandler_ = std::shared_ptr<PingHandler>(new PingHandler(40, filterStrategy, std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher));        
     }
 
     //------------------------------------------------------------------------------
@@ -83,11 +85,6 @@ namespace proc_hydrophone {
             ros::spinOnce();
             r.sleep();
         }
-    }
-
-    void ProcHydrophoneNode::OdomCallback(const nav_msgs::OdometryConstPtr &odom) {
-        // Simply save the last odom msg
-        this->configuration->setOdometry(odom);
     }
 
     void ProcHydrophoneNode::PingCallback(const sonia_common::PingMsgConstPtr &ping) {

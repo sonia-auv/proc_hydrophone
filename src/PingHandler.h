@@ -10,17 +10,14 @@
 #include <sonia_common/PingPose.h>
 #include <filter_strategy/IFilterStrategy.h>
 #include <ping_merge_strategy/IPingMergeStrategy.h>
-#include <ros/publisher.h>
-#include "Configuration.h"
+#include <ros/ros.h>
 
 namespace proc_hydrophone
 {
     class PingHandler {
 
     public:
-        PingHandler(uint8_t frequency, std::shared_ptr<IFilterStrategy> filterStrategy,
-                    std::shared_ptr<IPingMergeStrategy> pingMergeStrategy,
-                    std::shared_ptr<Configuration> &configuration,
+        PingHandler(std::shared_ptr<IFilterStrategy> filterStrategy,
                     ros::Publisher &pingPosePublisher);
         ~PingHandler();
 
@@ -28,20 +25,7 @@ namespace proc_hydrophone
 
     private:
 
-        uint8_t frequency;
         std::shared_ptr<IFilterStrategy> filterStrategy;
-        std::shared_ptr<IPingMergeStrategy> pingMergeStrategy;
-        std::shared_ptr<Configuration> configuration;
-
-        ros::Time lastStamp;
-
-        const uint8_t refreshTime = 1;
-
-        std::vector<sonia_common::PingMsgConstPtr> pendingPings;
-
-        // TODO Configuration
-        const double offset = 55 * M_PI / 180;
-
         const ros::Publisher pingPosePublisher;
 
     };

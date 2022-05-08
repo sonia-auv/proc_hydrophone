@@ -26,11 +26,9 @@
 #ifndef PROC_HYDROPHONE_PROC_HYDROPHONE_NODE_H_
 #define PROC_HYDROPHONE_PROC_HYDROPHONE_NODE_H_
 
-#include <ros/node_handle.h>
-#include <nav_msgs/Odometry.h>
+#include <ros/ros.h>
 #include <sonia_common/PingMsg.h>
 #include "PingHandler.h"
-#include "Configuration.h"
 
 namespace proc_hydrophone {
 
@@ -53,20 +51,18 @@ class ProcHydrophoneNode {
 
 private:
 
-    ros::NodeHandlePtr nh_;
-    std::shared_ptr<Configuration> configuration;
+  std::shared_ptr<PingHandler> pingHandler;
+  
+  ros::NodeHandlePtr nh_;
+  ros::Subscriber providerHydrophoneSubscriber;
+  ros::Publisher pingPosePublisher;
 
-    ros::Subscriber odomSubscriber;
-    ros::Subscriber providerHydrophoneSubscriber;
-    ros::Publisher pingPosePublisher;
+  void PingCallback(const sonia_common::PingMsgConstPtr &ping);
 
-    void OdomCallback(const nav_msgs::OdometryConstPtr &odom);
-    void PingCallback(const sonia_common::PingMsgConstPtr &ping);
-
-    std::shared_ptr<PingHandler> ping25kHzHandler_;
-    std::shared_ptr<PingHandler> ping30kHzHandler_;
-    std::shared_ptr<PingHandler> ping35kHzHandler_;
-    std::shared_ptr<PingHandler> ping40kHzHandler_;
+  // std::shared_ptr<PingHandler> ping25kHzHandler_;
+  // std::shared_ptr<PingHandler> ping30kHzHandler_;
+  // std::shared_ptr<PingHandler> ping35kHzHandler_;
+  // std::shared_ptr<PingHandler> ping40kHzHandler_;
 };
 
 }  // namespace proc_hydrophone
