@@ -6,8 +6,7 @@
 
 namespace proc_hydrophone
 {
-    PingHandler::PingHandler(uint8_t frequency, std::shared_ptr<IFilterStrategy> filterStrategy,
-                             ros::Publisher &pingPosePublisher)
+    PingHandler::PingHandler(std::shared_ptr<IFilterStrategy> filterStrategy, ros::Publisher &pingPosePublisher)
         : filterStrategy(filterStrategy),
           pingPosePublisher(pingPosePublisher)
     {
@@ -19,8 +18,8 @@ namespace proc_hydrophone
 
     }
 
-    void PingHandler::AddPing(const sonia_common::PingMsgConstPtr &ping) {
-
+    void PingHandler::AddPing(const sonia_common::PingMsgConstPtr &ping)
+    {
         ROS_DEBUG_STREAM("Filtering received ping");
 
         newping.push_back(ping);
@@ -32,7 +31,7 @@ namespace proc_hydrophone
         }
         else
         {
-            ROS_WARM_STREAM("Ping filtered out");
+            ROS_WARN_STREAM("Ping filtered out");
         }
         
         // auto currentStamp = ping->header.stamp;

@@ -23,7 +23,7 @@ namespace proc_hydrophone
         std::vector<sonia_common::PingMsgConstPtr> filteredPing = ping;
 
         for (auto filter : *filters) {
-            filteredPings = filter->Process(filteredPing);
+            filteredPing = filter->Process(filteredPing);
         }
 
         return filteredPing;
