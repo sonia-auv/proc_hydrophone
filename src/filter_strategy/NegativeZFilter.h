@@ -1,9 +1,9 @@
 /**
- * \file	main.cc
- * \author	Marc-Antoine Couture <coumarc9@outlook.com>
- * \date	07/16/2017
+ * \file	NegativeZFilter.h
+ * \author	Francis Alonzo <francisalonzo@gmail.com>
+ * \date	07/05/2022
  *
- * \copyright Copyright (c) 2017 S.O.N.I.A. All rights reserved.
+ * \copyright Copyright (c) 2022 S.O.N.I.A. All rights reserved.
  *
  * \section LICENSE
  *
@@ -23,15 +23,23 @@
  * along with S.O.N.I.A. software. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <ros/ros.h>
-#include "proc_hydrophone/proc_hydrophone_node.h"
+#ifndef PROC_HYDROPHONE_NEGATIVEZFILTER_H
+#define PROC_HYDROPHONE_NEGATIVEZFILTER_H
 
-int main(int argc, char **argv) {
-  ros::init(argc, argv, "proc_hydrophone");
+#include <filter_strategy/IFilterStrategy.h>
 
-  ros::NodeHandlePtr nh(new ros::NodeHandle("~"));
-  proc_hydrophone::ProcHydrophoneNode proc_hydrophone_node{nh};
-  proc_hydrophone_node.Spin();
+namespace proc_hydrophone
+{
+    class NegativeZFilter : public IFilterStrategy {
 
-  return 0;
+    public:
+        NegativeZFilter();
+        virtual ~NegativeZFilter();
+
+        std::vector<sonia_common::PingMsgConstPtr>
+        Process(std::vector<sonia_common::PingMsgConstPtr> pings) override;
+
+    };
+
 }
+#endif //PROC_HYDROPHONE_NEGATIVEZFILTER_H

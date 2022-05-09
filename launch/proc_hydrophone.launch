@@ -1,6 +1,4 @@
 <launch>
-	<node name="proc_hydrophone"
-	    pkg="proc_hydrophone"
-	    type="proc_hydrophone_node"
-	    output="screen" />
+    <env name="ROSCONSOLE_CONFIG_FILE" value="$(find proc_hydrophone)/config/rosconsole.config"/>
+	<node name="proc_hydrophone" pkg="proc_hydrophone" type="proc_hydrophone_node" output="screen" />
 </launch>

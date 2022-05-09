@@ -5,8 +5,7 @@
 #ifndef PROC_HYDROPHONE_COMPOSITEFILTER_H
 #define PROC_HYDROPHONE_COMPOSITEFILTER_H
 
-#include <proc_hydrophone/filter_strategy/IFilterStrategy.h>
-#include <ros/ros.h>
+#include <filter_strategy/IFilterStrategy.h>
 
 namespace proc_hydrophone {
     class CompositeFilter : public IFilterStrategy{
@@ -15,8 +14,7 @@ namespace proc_hydrophone {
 
         virtual ~CompositeFilter();
 
-        std::vector<sonia_common::PingMsgConstPtr>
-        Process(std::vector<sonia_common::PingMsgConstPtr> pings) override;
+        std::vector<sonia_common::PingMsgConstPtr> Process(std::vector<sonia_common::PingMsgConstPtr> ping) override;
 
     private:
         std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> filters;
