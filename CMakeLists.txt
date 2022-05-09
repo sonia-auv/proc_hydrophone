@@ -33,7 +33,6 @@ find_package(
         cmake_modules
         std_msgs
         sonia_common
-        geometry_msgs
 )
 
 catkin_package(
@@ -41,7 +40,6 @@ catkin_package(
         roscpp
         std_msgs
         sonia_common
-        geometry_msgs
 )
 
 
