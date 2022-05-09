@@ -26,6 +26,7 @@
 #include <filter_strategy/CompositeFilter.h>
 #include <filter_strategy/NegativeZFilter.h>
 #include <filter_strategy/VectorNormFilter.h>
+#include <filter_strategy/SNRFilter.h>
 #include "proc_hydrophone_node.h"
 
 namespace proc_hydrophone {
@@ -48,27 +49,19 @@ namespace proc_hydrophone {
         // Filtering strategies
         std::shared_ptr<IFilterStrategy> negativeZFilter(new NegativeZFilter());
         std::shared_ptr<IFilterStrategy> vectorNormFilter(new VectorNormFilter(500));
-        // std::shared_ptr<IFilterStrategy> keepFirstPingFilter(new KeepFirstPingFilter());
-        // std::shared_ptr<IFilterStrategy> elevationNaNFilter(new ElevationNaNFilter());
-        // std::shared_ptr<IFilterStrategy> amplitudeFilter(new AmplitudeFilter(20000000, 375000));
-        // std::shared_ptr<IFilterStrategy> ratioAmpNoiseFilter(new RatioAmpNoiseFilter(10, 8));
+        std::shared_ptr<IFilterStrategy> snrFilter(new SNRFilter(0)); // No filtering for the SNR
 
+        // Add filtering strategies to the filter list
         std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> filters(new std::vector<std::shared_ptr<IFilterStrategy>>);
         filters->push_back(negativeZFilter);
         filters->push_back(vectorNormFilter);
-        //filters->push_back(keepFirstPingFilter);
-        //filters->push_back(elevationNaNFilter);
-        //filters->push_back(amplitudeFilter);
-        //filters->push_back(ratioAmpNoiseFilter);
+        filters->push_back(snrFilter);
 
+        // Create a Composite filter (cycles through all filters)
         std::shared_ptr<IFilterStrategy> filterStrategy(new CompositeFilter(filters));
 
+        // Ping Handler
         pingHandler = std::shared_ptr<PingHandler>(new PingHandler(filterStrategy, pingPosePublisher));
-
-        // ping25kHzHandler_ = std::shared_ptr<PingHandler>(new PingHandler(25, filterStrategy, std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher));
-        // ping30kHzHandler_ = std::shared_ptr<PingHandler>(new PingHandler(30, filterStrategy, std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher));
-        // ping35kHzHandler_ = std::shared_ptr<PingHandler>(new PingHandler(35, filterStrategy, std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher));
-        // ping40kHzHandler_ = std::shared_ptr<PingHandler>(new PingHandler(40, filterStrategy, std::shared_ptr<IPingMergeStrategy>(new MeanMergeStrategy()), configuration, pingPosePublisher));        
     }
 
     //------------------------------------------------------------------------------
