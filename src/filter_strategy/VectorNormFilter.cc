@@ -53,11 +53,11 @@ namespace proc_hydrophone
         if (norm >= minimum_norm)
         {
             filteredPings.push_back(pings.front());
-            ROS_DEBUG_STREAM("Ping has a norm higher than" << minimum_norm << ". Ping is accepted");
+            ROS_DEBUG_STREAM("Ping has a norm higher than " << minimum_norm << ". Ping is accepted");
         }
         else
         {
-            ROS_ERROR_STREAM("Ping has a norm lower than" << minimum_norm << ". Ping rejeted");
+            ROS_ERROR_STREAM("Ping has a norm lower than " << minimum_norm << ". Ping rejeted");
         }
 
         return filteredPings;

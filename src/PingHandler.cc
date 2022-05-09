@@ -29,11 +29,8 @@ namespace proc_hydrophone
 
         if(!filteredPing.empty())
         {
+            ROS_INFO_STREAM("Received Ping is correct");
             pingPosePublisher.publish(ping);
-        }
-        else
-        {
-            ROS_WARN_STREAM("Ping filtered out");
         }
     }
 }
