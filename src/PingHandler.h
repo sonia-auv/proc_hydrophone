@@ -7,6 +7,7 @@
 
 #include <cstdint>
 #include <sonia_common/PingMsg.h>
+#include <algorithm/algoClass.h>
 #include <filter_strategy/IFilterStrategy.h>
 #include <ros/ros.h>
 

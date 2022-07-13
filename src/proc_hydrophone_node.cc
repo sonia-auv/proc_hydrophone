@@ -27,6 +27,7 @@
 #include <filter_strategy/NegativeZFilter.h>
 #include <filter_strategy/VectorNormFilter.h>
 #include <filter_strategy/SNRFilter.h>
+#include <algorithm/algoClass.h>
 #include "proc_hydrophone_node.h"
 
 namespace proc_hydrophone {
