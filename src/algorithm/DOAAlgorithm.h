@@ -44,12 +44,12 @@ namespace proc_hydrophone {
         //==========================================================================
         // P U B L I C   C / D T O R S
         
-        DOAAlgorithm(double_t phaseRef, double_t phase1, double_t phase2, double_t phase3, uint16_t index, uint16_t snr);
+        //DOAAlgorithm(double_t phaseRef, double_t phase1, double_t phase2, double_t phase3, uint16_t index, uint16_t snr);
         DOAAlgorithm();
-        ~DOAAlgorithm():
+        ~DOAAlgorithm();
 
         void setValues(double_t phaseRef, double_t phase1, double_t phase2, double_t phase3, uint16_t index, uint16_t snr);
-        void computeAngles();
+        void compute();
         bool resetValues();
 
         double_t getHeading() {return heading_;}
@@ -61,6 +61,11 @@ namespace proc_hydrophone {
 
         //==========================================================================
         // P R I V A T E   C / D T O R S
+
+        void computeAngles();
+        void computeFrequency();
+        void calculateHeading(double_t x, double_t y);
+        void calculateElevation(double_t x, double_t y, double_t z);
 
         double_t phaseRef_ = 0.0;
         double_t phase1_ = 0.0;
@@ -78,9 +83,7 @@ namespace proc_hydrophone {
 
         const double_t sample_rate = 256000.0;
         const double_t fft_length = 256.0;
-
         Matrix3d hydrophone_position;
-        Vector3d dephasage;
     };
 }
 

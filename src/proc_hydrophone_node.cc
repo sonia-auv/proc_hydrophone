@@ -24,8 +24,6 @@
  */
 
 #include <filter_strategy/CompositeFilter.h>
-#include <filter_strategy/NegativeZFilter.h>
-#include <filter_strategy/VectorNormFilter.h>
 #include <filter_strategy/SNRFilter.h>
 #include "proc_hydrophone_node.h"
 
@@ -41,23 +39,24 @@ namespace proc_hydrophone {
     {
 
         // Subscriber
-        providerHydrophoneSubscriber = nh_->subscribe("/provider_hydrophone/ping", 100, &ProcHydrophoneNode::PingCallback, this);
+        providerHydrophoneSubscriber_ = nh_->subscribe("/provider_hydrophone/ping", 100, &ProcHydrophoneNode::PingCallback, this);
 
         // Publishers
-        pingPosePublisher = nh_->advertise<sonia_common::PingAgnles>("/proc_hydrophone/ping", 100);
+        pingAnglesPublisher_ = nh_->advertise<sonia_common::PingAngles>("/proc_hydrophone/ping", 100);
 
         // Filtering strategies
-        std::shared_ptr<IFilterStrategy> snrFilter(new SNRFilter(0)); // No filtering for the SNR
+        std::shared_ptr<IFilterStrategy> snrFilter(new SNRFilter(100));
 
-        // Add filtering strategies to the filter list
-        std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> filters(new std::vector<std::shared_ptr<IFilterStrategy>>);
-        filters->push_back(snrFilter);
+        // Add pre-filtering strategies to the filter list
+        std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> prefilters(new std::vector<std::shared_ptr<IFilterStrategy>>);
+        prefilters->push_back(snrFilter);
 
         // Create a Composite filter (cycles through all filters)
-        std::shared_ptr<IFilterStrategy> filterStrategy(new CompositeFilter(filters));
+        std::shared_ptr<IFilterStrategy> prefilterStrategy(new CompositeFilter(prefilters));
+        prefilterStrategy_ = prefilterStrategy;
 
         // Ping Handler
-        pingHandler = std::shared_ptr<PingHandler>(new PingHandler(filterStrategy, pingPosePublisher));
+        //pingHandler = std::shared_ptr<PingHandler>(new PingHandler(prefilterStrategy, pingPosePublisher));
     }
 
     //------------------------------------------------------------------------------
@@ -81,7 +80,34 @@ namespace proc_hydrophone {
 
     void ProcHydrophoneNode::PingCallback(const sonia_common::PingMsgConstPtr &ping) 
     {
-        pingHandler->AddPing(ping);
+        std::vector<sonia_common::PingMsgConstPtr> newping;
+        sonia_common::PingAnglesPtr outping;
+        
+        ROS_DEBUG_STREAM("Pre-Filtering received ping");
+
+        newping.push_back(ping);
+        std::vector<sonia_common::PingMsgConstPtr> prefilteredPing = prefilterStrategy_->Process(newping);
+
+        if(!prefilteredPing.empty())
+        {
+            ROS_DEBUG_STREAM("Received Ping is correct");
+            
+            DOAAlgorithm *doa = new DOAAlgorithm;
+
+            doa->setValues(prefilteredPing.phaseRef, prefilteredPing.phase1, prefilteredPing.phase2,
+                            prefilteredPing.phase3, prefilteredPing.frequency, prefilteredPing.debug);
+
+            doa->compute();
+
+            outping->heading = doa->getHeading();
+            outping->elevation = doa->getElevation();
+            outping->frequency = doa->getFrequency();
+            outping->snr = doa->getSnr();
+            
+            pingAnglesPublisher_.publish(outping);
+
+            delete doa;
+        }
     }
 
 }  // namespace proc_hydrophone
