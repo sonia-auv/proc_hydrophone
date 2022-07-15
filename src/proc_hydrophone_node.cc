@@ -94,8 +94,8 @@ namespace proc_hydrophone {
             
             DOAAlgorithm *doa = new DOAAlgorithm;
 
-            doa->setValues(prefilteredPing.phaseRef, prefilteredPing.phase1, prefilteredPing.phase2,
-                            prefilteredPing.phase3, prefilteredPing.frequency, prefilteredPing.debug);
+            doa->setValues(prefilteredPing.front()->phaseRef, prefilteredPing.front()->phase1, prefilteredPing.front()->phase2,
+                            prefilteredPing.front()->phase3, prefilteredPing.front()->frequency, prefilteredPing.front()->debug);
 
             doa->compute();
 
