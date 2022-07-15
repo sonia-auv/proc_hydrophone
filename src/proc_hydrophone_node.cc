@@ -44,17 +44,13 @@ namespace proc_hydrophone {
         providerHydrophoneSubscriber = nh_->subscribe("/provider_hydrophone/ping", 100, &ProcHydrophoneNode::PingCallback, this);
 
         // Publishers
-        pingPosePublisher = nh_->advertise<sonia_common::PingMsg>("/proc_hydrophone/ping", 100);
+        pingPosePublisher = nh_->advertise<sonia_common::PingAgnles>("/proc_hydrophone/ping", 100);
 
         // Filtering strategies
-        std::shared_ptr<IFilterStrategy> negativeZFilter(new NegativeZFilter());
-        std::shared_ptr<IFilterStrategy> vectorNormFilter(new VectorNormFilter(500));
         std::shared_ptr<IFilterStrategy> snrFilter(new SNRFilter(0)); // No filtering for the SNR
 
         // Add filtering strategies to the filter list
         std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> filters(new std::vector<std::shared_ptr<IFilterStrategy>>);
-        filters->push_back(negativeZFilter);
-        filters->push_back(vectorNormFilter);
         filters->push_back(snrFilter);
 
         // Create a Composite filter (cycles through all filters)
