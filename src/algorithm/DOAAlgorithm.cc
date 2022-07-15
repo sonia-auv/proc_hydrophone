@@ -29,16 +29,6 @@
 
  namespace proc_hydrophone {
 
-    // DOAAlgorithm::DOAAlgorithm(double_t phaseRef, double_t phase1, double_t phase2, double_t phase3, uint16_t index, uint16_t snr)
-    //     :   phaseRef_(phaseRef),
-    //         phase1_(phase1),
-    //         phase2_(phase2),
-    //         phase3_(phase3),
-    //         index_(index),
-    //         snr_(snr)
-    // {
-    // }
-
     DOAAlgorithm::DOAAlgorithm()
     {
         hydrophone_position <<  64.6830530401035,	-129.366106080207,	64.6830530401035,
@@ -83,7 +73,7 @@
         Vector3d dephasage, m;
         dephasage << phase1_ - phaseRef_, phase2_ - phaseRef_, phase3_ - phaseRef_;
 
-        m = hydrophone_position * dephasage; // À confirmer cross() ou dot()
+        m = hydrophone_position * dephasage;
 
         calculateHeading(m(0), m(1));
         calculateElevation(m(0), m(1), m(2));
@@ -105,18 +95,9 @@
         double_t sum = 0, tmp = 0;
 
         sum = _x + _y + _z;
-        tmp = z / sum;
+        tmp = z / sqrt(sum);
         
         // Ajouter une configuration pour la valeur absolue
         elevation_ = acos(abs(tmp));
     }
-
-    // const Matrix3d DOAAlgorithm::getHydroPosition()
-    // {
-    //     static Matrix3d hydrophone_position <<  64.6830530401035,	-129.366106080207,	64.6830530401035,
-    //                                             -38.8802488335925,	0,	                38.8802488335925,
-    //                                             -234.476067270375,	218.952134540750,	-234.476067270375;
-    //     return hydrophone_position;
-    // }
-
 }

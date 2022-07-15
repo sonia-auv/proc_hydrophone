@@ -44,7 +44,6 @@ namespace proc_hydrophone {
         //==========================================================================
         // P U B L I C   C / D T O R S
         
-        //DOAAlgorithm(double_t phaseRef, double_t phase1, double_t phase2, double_t phase3, uint16_t index, uint16_t snr);
         DOAAlgorithm();
         ~DOAAlgorithm();
 

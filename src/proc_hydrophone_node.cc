@@ -37,7 +37,6 @@ namespace proc_hydrophone {
     ProcHydrophoneNode::ProcHydrophoneNode(const ros::NodeHandlePtr &nh)
         : nh_(nh)
     {
-
         // Subscriber
         providerHydrophoneSubscriber_ = nh_->subscribe("/provider_hydrophone/ping", 100, &ProcHydrophoneNode::PingCallback, this);
 
@@ -54,9 +53,6 @@ namespace proc_hydrophone {
         // Create a Composite filter (cycles through all filters)
         std::shared_ptr<IFilterStrategy> prefilterStrategy(new CompositeFilter(prefilters));
         prefilterStrategy_ = prefilterStrategy;
-
-        // Ping Handler
-        //pingHandler = std::shared_ptr<PingHandler>(new PingHandler(prefilterStrategy, pingPosePublisher));
     }
 
     //------------------------------------------------------------------------------
@@ -98,7 +94,8 @@ namespace proc_hydrophone {
                             prefilteredPing.front()->phase3, prefilteredPing.front()->frequency, prefilteredPing.front()->debug);
 
             doa->compute();
-
+            
+            outping.header = prefilteredPing.front()->header;
             outping.heading = doa->getHeading();
             outping.elevation = doa->getElevation();
             outping.frequency = doa->getFrequency();
