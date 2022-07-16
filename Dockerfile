@@ -1,4 +1,4 @@
-ARG BASE_IMAGE="ghcr.io/sonia-auv/sonia_common/sonia_common:x86-perception-feature-missing-info-hydro"
+ARG BASE_IMAGE="ghcr.io/sonia-auv/sonia_common/sonia_common:x86-perception-latest"
 
 FROM ${BASE_IMAGE}
 
