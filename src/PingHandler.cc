@@ -6,8 +6,8 @@
 
 namespace proc_hydrophone
 {
-    PingHandler::PingHandler(std::shared_ptr<IFilterStrategy> filterStrategy, ros::Publisher &pingPosePublisher)
-        : filterStrategy(filterStrategy),
+    PingHandler::PingHandler(std::shared_ptr<IFilterStrategy> prefilterStrategy, ros::Publisher &pingPosePublisher)
+        : prefilterStrategy(prefilterStrategy),
           pingPosePublisher(pingPosePublisher)
     {
 
@@ -22,14 +22,14 @@ namespace proc_hydrophone
     {
         std::vector<sonia_common::PingMsgConstPtr> newping;
         
-        ROS_DEBUG_STREAM("Filtering received ping");
+        ROS_DEBUG_STREAM("Pre-Filtering received ping");
 
         newping.push_back(ping);
-        std::vector<sonia_common::PingMsgConstPtr> filteredPing = filterStrategy->Process(newping);
+        std::vector<sonia_common::PingMsgConstPtr> prefilteredPing = prefilterStrategy->Process(newping);
 
-        if(!filteredPing.empty())
+        if(!prefilteredPing.empty())
         {
-            ROS_INFO_STREAM("Received Ping is correct");
+            ROS_DEBUG_STREAM("Received Ping is correct");
             pingPosePublisher.publish(ping);
         }
     }

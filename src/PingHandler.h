@@ -5,17 +5,17 @@
 #ifndef PROC_HYDROPHONE_PINGHANDLER_H
 #define PROC_HYDROPHONE_PINGHANDLER_H
 
-#include <cstdint>
 #include <sonia_common/PingMsg.h>
 #include <filter_strategy/IFilterStrategy.h>
 #include <ros/ros.h>
+#include "algorithm/DOAAlgorithm.h"
 
-namespace proc_hydrophone
+namespace proc_hydrophone // To continue with more filters
 {
     class PingHandler {
 
     public:
-        PingHandler(std::shared_ptr<IFilterStrategy> filterStrategy,
+        PingHandler(std::shared_ptr<IFilterStrategy> prefilterStrategy,
                     ros::Publisher &pingPosePublisher);
         ~PingHandler();
 
@@ -23,7 +23,7 @@ namespace proc_hydrophone
 
     private:
 
-        std::shared_ptr<IFilterStrategy> filterStrategy;
+        std::shared_ptr<IFilterStrategy> prefilterStrategy;
         const ros::Publisher pingPosePublisher;
 
     };

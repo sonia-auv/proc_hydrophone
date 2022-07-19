@@ -53,7 +53,7 @@ namespace proc_hydrophone
         }
         else
         {
-            ROS_ERROR_STREAM("Ping has a signal to noise ratio lower than " << minimum_SNR << ". Ping rejeted");
+            ROS_DEBUG_STREAM("Ping has a signal to noise ratio lower than " << minimum_SNR << ". Ping rejeted");
         }
 
         return filteredPings;

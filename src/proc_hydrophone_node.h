@@ -28,41 +28,36 @@
 
 #include <ros/ros.h>
 #include <sonia_common/PingMsg.h>
+#include <sonia_common/PingAngles.h>
 #include "PingHandler.h"
+#include "algorithm/DOAAlgorithm.h"
 
 namespace proc_hydrophone {
 
 class ProcHydrophoneNode {
- public:
-  //==========================================================================
-  // T Y P E D E F   A N D   E N U M
+  public:
+    //==========================================================================
+    // T Y P E D E F   A N D   E N U M
 
-  //==========================================================================
-  // P U B L I C   C / D T O R S
+    //==========================================================================
+    // P U B L I C   C / D T O R S
 
-  explicit ProcHydrophoneNode(const ros::NodeHandlePtr &nh);
+    explicit ProcHydrophoneNode(const ros::NodeHandlePtr &nh);
 
-  ~ProcHydrophoneNode();
+    ~ProcHydrophoneNode();
 
-  /// Taking care of the spinning of the ROS thread.
-  /// Each iteration of the loop, this will take the objects in the object
-  /// registery, empty it and publish the objects.
-  void Spin();
+    void Spin();
 
-private:
+  private:
 
-  std::shared_ptr<PingHandler> pingHandler;
-  
-  ros::NodeHandlePtr nh_;
-  ros::Subscriber providerHydrophoneSubscriber;
-  ros::Publisher pingPosePublisher;
+    //std::shared_ptr<PingHandler> pingHandler;
 
-  void PingCallback(const sonia_common::PingMsgConstPtr &ping);
+    std::shared_ptr<IFilterStrategy> prefilterStrategy_;
+    ros::NodeHandlePtr nh_;
+    ros::Subscriber providerHydrophoneSubscriber_;
+    ros::Publisher pingAnglesPublisher_;
 
-  // std::shared_ptr<PingHandler> ping25kHzHandler_;
-  // std::shared_ptr<PingHandler> ping30kHzHandler_;
-  // std::shared_ptr<PingHandler> ping35kHzHandler_;
-  // std::shared_ptr<PingHandler> ping40kHzHandler_;
+    void PingCallback(const sonia_common::PingMsgConstPtr &ping);
 };
 
 }  // namespace proc_hydrophone
