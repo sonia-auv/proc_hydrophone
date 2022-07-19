@@ -44,7 +44,7 @@ namespace proc_hydrophone {
         pingAnglesPublisher_ = nh_->advertise<sonia_common::PingAngles>("/proc_hydrophone/ping", 100);
 
         // Filtering strategies
-        std::shared_ptr<IFilterStrategy> snrFilter(new SNRFilter(100));
+        std::shared_ptr<IFilterStrategy> snrFilter(new SNRFilter(0));
 
         // Add pre-filtering strategies to the filter list
         std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> prefilters(new std::vector<std::shared_ptr<IFilterStrategy>>);

@@ -31,9 +31,9 @@
 
     DOAAlgorithm::DOAAlgorithm()
     {
-        hydrophone_position <<  64.6830530401035,	-129.366106080207,	64.6830530401035,
-                                -38.8802488335925,	0,	                38.8802488335925,
-                                -234.476067270375,	218.952134540750,	-234.476067270375;
+        hydrophone_position <<  75.4944129101486,	-112.084038367267,	36.5896254571187,
+                                -1.30856982377590,	-64.7238766683007,	66.0324464920766,
+                                -234.680673732273,	219.255906934514,	-234.575233202241;
     }
 
     DOAAlgorithm::~DOAAlgorithm()
@@ -98,6 +98,6 @@
         tmp = z / sqrt(sum);
         
         // Ajouter une configuration pour la valeur absolue
-        elevation_ = acos(abs(tmp));
+        elevation_ = acos(tmp);
     }
 }
