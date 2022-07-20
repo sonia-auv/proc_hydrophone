@@ -1,0 +1,7 @@
+#********** Algorithm Parameters ************
+
+/proc_hydrophone/algorithm/absoluteElevation : true
+
+#********** Filters Parameters ************
+
+/proc_hydrophone/filters/SNR : 10
