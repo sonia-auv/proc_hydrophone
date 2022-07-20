@@ -44,7 +44,7 @@ namespace proc_hydrophone {
         //==========================================================================
         // P U B L I C   C / D T O R S
         
-        DOAAlgorithm();
+        DOAAlgorithm(bool absElevation);
         ~DOAAlgorithm();
 
         void setValues(double_t phaseRef, double_t phase1, double_t phase2, double_t phase3, uint16_t index, uint16_t snr);
@@ -75,6 +75,8 @@ namespace proc_hydrophone {
         uint16_t frequency_ = 0.0; // frequency in Hz
         double_t heading_ = 0.0; // heading in radians
         double_t elevation_ = 0.0; // elevation in radians
+
+        bool absElevation_ = false;
 
     //--------------------------------------------------------
     //-------------------------CONST--------------------------

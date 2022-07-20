@@ -35,7 +35,8 @@ namespace proc_hydrophone {
     //------------------------------------------------------------------------------
     //
     ProcHydrophoneNode::ProcHydrophoneNode(const ros::NodeHandlePtr &nh)
-        : nh_(nh)
+        : nh_(nh),
+          configuration_(nh)
     {
         // Subscriber
         providerHydrophoneSubscriber_ = nh_->subscribe("/provider_hydrophone/ping", 100, &ProcHydrophoneNode::PingCallback, this);
@@ -44,7 +45,7 @@ namespace proc_hydrophone {
         pingAnglesPublisher_ = nh_->advertise<sonia_common::PingAngles>("/proc_hydrophone/ping", 100);
 
         // Filtering strategies
-        std::shared_ptr<IFilterStrategy> snrFilter(new SNRFilter(0));
+        std::shared_ptr<IFilterStrategy> snrFilter(new SNRFilter(configuration_.getSNRFilter()));
 
         // Add pre-filtering strategies to the filter list
         std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> prefilters(new std::vector<std::shared_ptr<IFilterStrategy>>);
@@ -88,7 +89,7 @@ namespace proc_hydrophone {
         {
             ROS_DEBUG_STREAM("Received Ping is correct");
             
-            DOAAlgorithm *doa = new DOAAlgorithm;
+            DOAAlgorithm *doa = new DOAAlgorithm(configuration_.getAbsoluteElevation());
 
             doa->setValues(prefilteredPing.front()->phaseRef, prefilteredPing.front()->phase1, prefilteredPing.front()->phase2,
                             prefilteredPing.front()->phase3, prefilteredPing.front()->frequency, prefilteredPing.front()->debug);

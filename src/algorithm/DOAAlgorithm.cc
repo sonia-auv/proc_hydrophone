@@ -29,11 +29,17 @@
 
  namespace proc_hydrophone {
 
-    DOAAlgorithm::DOAAlgorithm()
+    DOAAlgorithm::DOAAlgorithm(bool absElevation)
+        : absElevation_(absElevation)
     {
-        hydrophone_position <<  75.4944129101486,	-112.084038367267,	36.5896254571187,
-                                -1.30856982377590,	-64.7238766683007,	66.0324464920766,
-                                -234.680673732273,	219.255906934514,	-234.575233202241;
+        // Puck rotation of 30 degrees. With testing seems like it's 30 degrees in the wrong direction
+        // hydrophone_position <<  75.4944129101486,	-112.084038367267,	36.5896254571187,
+        //                         -1.30856982377590,	-64.7238766683007,	66.0324464920766,
+        //                         -234.680673732273,	219.255906934514,	-234.575233202241;
+
+        hydrophone_position <<  64.6830530401035,	-129.366106080207,	64.6830530401035,
+                                -38.8802488335925,	0,	                38.8802488335925,
+                                -234.476067270375,	218.952134540750,	-234.476067270375;
     }
 
     DOAAlgorithm::~DOAAlgorithm()
@@ -81,7 +87,7 @@
 
     void DOAAlgorithm::computeFrequency()
     {
-        frequency_ = index_ * (sample_rate / fft_length);
+        frequency_ = index_;
     }
 
     void DOAAlgorithm::calculateHeading(double_t x, double_t y)
@@ -97,7 +103,7 @@
         sum = _x + _y + _z;
         tmp = z / sqrt(sum);
         
-        // Ajouter une configuration pour la valeur absolue
+        tmp = absElevation_ ? abs(tmp) : tmp;
         elevation_ = acos(tmp);
     }
 }
