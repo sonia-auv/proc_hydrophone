@@ -1,6 +1,6 @@
 #********** Algorithm Parameters ************
 
-/proc_hydrophone/algorithm/absoluteElevation : true
+/proc_hydrophone/algorithm/absoluteElevation : false
 
 #********** Filters Parameters ************
 
