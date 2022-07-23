@@ -1,7 +1,7 @@
 /**
  * \file	SNRFilter.cc
  * \author	Francis Alonzo <francisalonzo@gmail.com>
- * \date	09/05/2022
+ * \date	23/07/2022
  *
  * \copyright Copyright (c) 2022 S.O.N.I.A. All rights reserved.
  *
