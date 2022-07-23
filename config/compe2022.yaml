@@ -5,3 +5,4 @@
 #********** Filters Parameters ************
 
 /proc_hydrophone/filters/SNR : 10
+/proc_hydrophone/filters/maxAngle : 1.57079632679
