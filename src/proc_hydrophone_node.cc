@@ -25,6 +25,7 @@
 
 #include <filter_strategy/CompositeFilter.h>
 #include <filter_strategy/SNRFilter.h>
+#include <filter_strategy/phaseDiff.h>
 #include "proc_hydrophone_node.h"
 
 namespace proc_hydrophone {
@@ -46,10 +47,12 @@ namespace proc_hydrophone {
 
         // Filtering strategies
         std::shared_ptr<IFilterStrategy> snrFilter(new SNRFilter(configuration_.getSNRFilter()));
+        std::shared_ptr<IFilterStrategy> maxAngleDiff(new phaseDiff(configuration_.getMaxAngle()));
 
         // Add pre-filtering strategies to the filter list
         std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> prefilters(new std::vector<std::shared_ptr<IFilterStrategy>>);
         prefilters->push_back(snrFilter);
+        prefilters->push_back(maxAngleDiff);
 
         // Create a Composite filter (cycles through all filters)
         std::shared_ptr<IFilterStrategy> prefilterStrategy(new CompositeFilter(prefilters));
