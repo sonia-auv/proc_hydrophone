@@ -41,8 +41,6 @@ namespace proc_hydrophone
     {
         sonia_common::PingAnglesPtr filteredpings;
 
-        if(pings.empty()) return pings;
-
         double_t heading = pings->heading;
         double_t elevation = pings->elevation;
 
@@ -64,9 +62,9 @@ namespace proc_hydrophone
         }
 
         filteredpings->header = pings->header;
-        fitteredpings->snr = pings->snr;
+        filteredpings->snr = pings->snr;
 
-        return filteredPings;
+        return filteredpings;
     }
 
     double_t elevationCheck::unWrap(double_t angle)
