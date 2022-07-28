@@ -106,7 +106,7 @@ namespace proc_hydrophone {
             outping.frequency = doa->getFrequency();
             outping.snr = doa->getSnr();
 
-            elevationCheck *check = new elevationCheck(configuration_.getMaxAngle(), true);
+            elevationCheck *check = new elevationCheck(configuration_.getMaxAngle(), configuration_.getAbsoluteElevation());
 
             secondfilterping = check->Process(outping);
             
