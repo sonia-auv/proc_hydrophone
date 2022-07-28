@@ -81,8 +81,8 @@ namespace proc_hydrophone {
     void ProcHydrophoneNode::PingCallback(const sonia_common::PingMsgConstPtr &ping) 
     {
         std::vector<sonia_common::PingMsgConstPtr> newping;
-        sonia_common::PingAngles outping = sonia_common::PingAnglesPtr();
-        sonia_common::PingAngles secondfilterping = sonia_common::PingAnglesPtr();
+        sonia_common::PingAngles outping = sonia_common::PingAngles();
+        sonia_common::PingAngles secondfilterping = sonia_common::PingAngles();
         
         ROS_DEBUG_STREAM("Pre-Filtering received ping");
 
