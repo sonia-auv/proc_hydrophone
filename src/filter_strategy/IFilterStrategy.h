@@ -7,6 +7,7 @@
 
 #include <sonia_common/PingMsg.h>
 #include <ros/ros.h>
+#include <math.h>
 
 namespace proc_hydrophone
 {

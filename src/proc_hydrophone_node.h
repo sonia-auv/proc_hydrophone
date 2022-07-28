@@ -32,6 +32,7 @@
 #include "PingHandler.h"
 #include "Configuration.h"
 #include "algorithm/DOAAlgorithm.h"
+#include "filter_strategy_angles/elevationCheck.h"
 
 namespace proc_hydrophone {
 
