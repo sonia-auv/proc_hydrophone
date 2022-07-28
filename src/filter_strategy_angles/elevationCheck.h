@@ -38,7 +38,7 @@ namespace proc_hydrophone
         elevationCheck(double angle = 0, bool keepElevation = false);
         ~elevationCheck();
 
-        sonia_common::PingAnglesPtr Process(sonia_common::PingAnglesPtr ping);
+        sonia_common::PingAngles Process(sonia_common::PingAngles ping);
 
     private:
 
