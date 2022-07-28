@@ -81,8 +81,8 @@ namespace proc_hydrophone {
     void ProcHydrophoneNode::PingCallback(const sonia_common::PingMsgConstPtr &ping) 
     {
         std::vector<sonia_common::PingMsgConstPtr> newping;
-        sonia_common::PingAnglesPtr outping = sonia_common::PingAnglesPtr();
-        sonia_common::PingAnglesPtr secondfilterping = sonia_common::PingAnglesPtr();
+        sonia_common::PingAngles outping = sonia_common::PingAnglesPtr();
+        sonia_common::PingAngles secondfilterping = sonia_common::PingAnglesPtr();
         
         ROS_DEBUG_STREAM("Pre-Filtering received ping");
 
@@ -100,15 +100,15 @@ namespace proc_hydrophone {
 
             doa->compute();
             
-            outping->header = prefilteredPing.front()->header;
-            outping->heading = doa->getHeading();
-            outping->elevation = doa->getElevation();
-            outping->frequency = doa->getFrequency();
-            outping->snr = doa->getSnr();
+            outping.header = prefilteredPing.front()->header;
+            outping.heading = doa->getHeading();
+            outping.elevation = doa->getElevation();
+            outping.frequency = doa->getFrequency();
+            outping.snr = doa->getSnr();
 
             elevationCheck *check = new elevationCheck(configuration_.getMaxAngle(), true);
 
-            // secondfilterping = check->Process(outping);
+            secondfilterping = check->Process(outping);
             
             pingAnglesPublisher_.publish(secondfilterping);
 

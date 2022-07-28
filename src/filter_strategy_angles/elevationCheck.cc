@@ -37,32 +37,32 @@ namespace proc_hydrophone
 
     }
 
-    sonia_common::PingAnglesPtr elevationCheck::Process(sonia_common::PingAnglesPtr pings)
+    sonia_common::PingAngles elevationCheck::Process(sonia_common::PingAngles pings)
     {
-        sonia_common::PingAnglesPtr filteredpings;
+        sonia_common::PingAngles filteredpings;
 
-        double_t heading = pings->heading;
-        double_t elevation = pings->elevation;
+        double_t heading = pings.heading;
+        double_t elevation = pings.elevation;
 
         if(elevation >= angle)
         {
             ROS_DEBUG_STREAM("Ping has an elevation over pi/2");
             
-            filteredpings->heading = unWrap(heading + M_PI);
-            filteredpings->elevation = M_PI - (M_PI - elevation);
+            filteredpings.heading = unWrap(heading + M_PI);
+            filteredpings.elevation = M_PI - (M_PI - elevation);
         }
         else
         {
             if(keepElevation)
             {
                 ROS_DEBUG_STREAM("Keeping ping");
-                filteredpings->heading = pings->heading;
-                filteredpings->elevation = pings->elevation;
+                filteredpings.heading = pings.heading;
+                filteredpings.elevation = pings.elevation;
             }
         }
 
-        filteredpings->header = pings->header;
-        filteredpings->snr = pings->snr;
+        filteredpings.header = pings.header;
+        filteredpings.snr = pings.snr;
 
         return filteredpings;
     }
