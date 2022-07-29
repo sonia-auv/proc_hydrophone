@@ -34,16 +34,29 @@ namespace proc_hydrophone
 {
     class elevationCheck
     {
+    //==========================================================================
+    // P U B L I C   C / D T O R S
     public:
         elevationCheck(double angle = 0, bool keepElevation = false);
         ~elevationCheck();
 
-        sonia_common::PingAngles Process(sonia_common::PingAngles ping);
+        void setValues(double_t heading, double_t elevation, double_t frequency, uint16_t snr);
+        bool compute();
+        bool resetValues();
+
+        sonia_common::PingAngles getPing() {return ping;};
 
     private:
 
         double_t angle;
         bool keepElevation;
+
+        double_t heading_;
+        double_t elevation_;
+        double_t frequency_;
+        uint16_t snr_;
+
+        sonia_common::PingAngles ping;
 
         double_t unWrap(double_t angle);
     };

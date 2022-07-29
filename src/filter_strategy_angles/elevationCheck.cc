@@ -37,34 +37,48 @@ namespace proc_hydrophone
 
     }
 
-    sonia_common::PingAngles elevationCheck::Process(sonia_common::PingAngles pings)
+    void elevationCheck::setValues(double_t heading, double_t elevation, double_t frequency, uint16_t snr)
     {
-        sonia_common::PingAngles filteredpings;
+        heading_ = heading;
+        elevation_ = elevation;
+        ping.frequency = frequency;
+        ping.snr = snr;
+    }
 
-        double_t heading = pings.heading;
-        double_t elevation = pings.elevation;
-
-        if(elevation >= angle)
+    bool elevationCheck::compute()
+    {
+        if(elevation_ >= angle)
         {
             ROS_DEBUG_STREAM("Ping has an elevation over pi/2");
             
-            filteredpings.heading = unWrap(heading + M_PI);
-            filteredpings.elevation = M_PI - (M_PI - elevation);
+            ping.heading = unWrap(heading_ + M_PI);
+            ping.elevation = M_PI - (M_PI - elevation_);
         }
         else
         {
             if(keepElevation)
             {
                 ROS_DEBUG_STREAM("Keeping ping");
-                filteredpings.heading = pings.heading;
-                filteredpings.elevation = pings.elevation;
+                ping.heading = heading_;
+                ping.elevation = elevation_;
+            }
+            else
+            {
+                return false;
             }
         }
+        return true;
+    }
 
-        filteredpings.header = pings.header;
-        filteredpings.snr = pings.snr;
-
-        return filteredpings;
+    bool elevationCheck::resetValues()
+    {
+        heading_ = 0;
+        elevation_ = 0;
+        ping.frequency = 0;
+        ping.snr = 0;    
+        ping.heading = 0;
+        ping.elevation = 0;
+        return true;
     }
 
     double_t elevationCheck::unWrap(double_t angle)

@@ -108,10 +108,14 @@ namespace proc_hydrophone {
 
             elevationCheck *check = new elevationCheck(configuration_.getMaxAngle(), configuration_.getAbsoluteElevation());
 
-            secondfilterping = check->Process(outping);
-            
-            pingAnglesPublisher_.publish(secondfilterping);
+            check->setValues(outping.heading, outping.elevation, outping.frequency, outping.snr);
 
+            if(check->compute())
+            {
+                secondfilterping = check->getPing();
+                secondfilterping.header = prefilteredPing.front()->header;
+                pingAnglesPublisher_.publish(secondfilterping);
+            }
             delete doa;
         }
     }
