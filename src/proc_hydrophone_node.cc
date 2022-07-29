@@ -116,6 +116,7 @@ namespace proc_hydrophone {
                 secondfilterping.header = prefilteredPing.front()->header;
                 pingAnglesPublisher_.publish(secondfilterping);
             }
+            delete check;
             delete doa;
         }
     }

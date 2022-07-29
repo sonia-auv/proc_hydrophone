@@ -52,7 +52,7 @@ namespace proc_hydrophone
             ROS_DEBUG_STREAM("Ping has an elevation over pi/2");
             
             ping.heading = unWrap(heading_ + M_PI);
-            ping.elevation = M_PI - (M_PI - elevation_);
+            ping.elevation = M_PI_2 - (elevation_ - M_PI_2);
         }
         else
         {
