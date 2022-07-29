@@ -52,7 +52,7 @@ namespace proc_hydrophone
             ROS_DEBUG_STREAM("Ping has an elevation over pi/2");
             
             ping.heading = unWrap(heading_ + M_PI);
-            ping.elevation = M_PI - (M_PI - elevation_);
+            ping.elevation = M_PI_2 - (elevation_ - M_PI_2);
         }
         else
         {
@@ -85,11 +85,11 @@ namespace proc_hydrophone
     {
         double_t new_angle = angle;
 
-        while(angle > M_PI)
+        if(angle > M_PI)
         {
             new_angle -= 2 * M_PI;
         }
-        while(angle < -M_PI)
+        if(angle < -M_PI)
         {
             new_angle += 2 * M_PI;
         }

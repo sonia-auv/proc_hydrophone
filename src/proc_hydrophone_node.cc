@@ -78,7 +78,7 @@ namespace proc_hydrophone {
         }
     }
 
-    void ProcHydrophoneNode::PingCallback(const sonia_common::PingMsgConstPtr &ping) 
+    void ProcHydrophoneNode::PingCallback(const sonia_common::PingMsgConstPtr &ping)
     {
         std::vector<sonia_common::PingMsgConstPtr> newping;
         sonia_common::PingAngles outping = sonia_common::PingAngles();
@@ -106,6 +106,8 @@ namespace proc_hydrophone {
             outping.frequency = doa->getFrequency();
             outping.snr = doa->getSnr();
 
+            // pingAnglesPublisher_.publish(outping);
+
             elevationCheck *check = new elevationCheck(configuration_.getMaxAngle(), configuration_.getAbsoluteElevation());
 
             check->setValues(outping.heading, outping.elevation, outping.frequency, outping.snr);
@@ -116,6 +118,7 @@ namespace proc_hydrophone {
                 secondfilterping.header = prefilteredPing.front()->header;
                 pingAnglesPublisher_.publish(secondfilterping);
             }
+            delete check;
             delete doa;
         }
     }
