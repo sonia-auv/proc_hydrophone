@@ -29,8 +29,8 @@
 #include <ros/ros.h>
 #include <sonia_common/PingMsg.h>
 #include <sonia_common/PingAngles.h>
-#include "PingHandler.h"
 #include "Configuration.h"
+#include "filter_strategy/IFilterStrategy.h"
 #include "algorithm/DOAAlgorithm.h"
 #include "filter_strategy_angles/elevationCheck.h"
 
