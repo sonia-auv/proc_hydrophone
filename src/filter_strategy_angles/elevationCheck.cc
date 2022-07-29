@@ -85,11 +85,11 @@ namespace proc_hydrophone
     {
         double_t new_angle = angle;
 
-        while(angle > M_PI)
+        if(angle > M_PI)
         {
             new_angle -= 2 * M_PI;
         }
-        while(angle < -M_PI)
+        if(angle < -M_PI)
         {
             new_angle += 2 * M_PI;
         }
