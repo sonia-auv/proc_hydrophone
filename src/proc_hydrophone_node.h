@@ -54,6 +54,7 @@ class ProcHydrophoneNode {
     ros::NodeHandlePtr nh_;
     ros::Subscriber providerHydrophoneSubscriber_;
     ros::Publisher pingAnglesPublisher_;
+    ros::Publisher pingAnglesPrefilteredPublisher_;
     Configuration configuration_;
 
     void PingCallback(const sonia_common::PingMsgConstPtr &ping);

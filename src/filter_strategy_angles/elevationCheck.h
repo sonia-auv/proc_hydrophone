@@ -37,7 +37,7 @@ namespace proc_hydrophone
     //==========================================================================
     // P U B L I C   C / D T O R S
     public:
-        elevationCheck(double angle = 0, bool keepElevation = false);
+        elevationCheck(double angle, bool keepElevation, bool removeElevation);
         ~elevationCheck();
 
         void setValues(double_t heading, double_t elevation, double_t frequency, uint16_t snr);
@@ -48,8 +48,9 @@ namespace proc_hydrophone
 
     private:
 
-        double_t angle;
-        bool keepElevation;
+        double_t angle_;
+        bool keepElevation_;
+        bool removeElevation_;
 
         double_t heading_;
         double_t elevation_;

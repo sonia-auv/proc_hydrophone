@@ -43,6 +43,7 @@ namespace proc_hydrophone {
         providerHydrophoneSubscriber_ = nh_->subscribe("/provider_hydrophone/ping", 100, &ProcHydrophoneNode::PingCallback, this);
 
         // Publishers
+        pingAnglesPrefilteredPublisher_ = nh_->advertise<sonia_common::PingAngles>("/proc_hydrophone/prefilter_ping", 100);
         pingAnglesPublisher_ = nh_->advertise<sonia_common::PingAngles>("/proc_hydrophone/ping", 100);
 
         // Filtering strategies
@@ -106,19 +107,19 @@ namespace proc_hydrophone {
             outping.frequency = doa->getFrequency();
             outping.snr = doa->getSnr();
 
-            pingAnglesPublisher_.publish(outping);
+            pingAnglesPrefilteredPublisher_.publish(outping);
 
-            // elevationCheck *check = new elevationCheck(configuration_.getMaxAngle(), configuration_.getAbsoluteElevation());
+            elevationCheck *check = new elevationCheck(configuration_.getMaxAngle(), configuration_.getAbsoluteElevation(), true);
 
-            // check->setValues(outping.heading, outping.elevation, outping.frequency, outping.snr);
+            check->setValues(outping.heading, outping.elevation, outping.frequency, outping.snr);
 
-            // if(check->compute())
-            // {
-            //     secondfilterping = check->getPing();
-            //     secondfilterping.header = prefilteredPing.front()->header;
-            //     pingAnglesPublisher_.publish(secondfilterping);
-            // }
-            // delete check;
+            if(check->compute())
+            {
+                secondfilterping = check->getPing();
+                secondfilterping.header = prefilteredPing.front()->header;
+                pingAnglesPublisher_.publish(secondfilterping);
+            }
+            delete check;
             delete doa;
         }
     }

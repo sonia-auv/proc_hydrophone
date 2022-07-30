@@ -26,9 +26,10 @@
 
 namespace proc_hydrophone
 {
-    elevationCheck::elevationCheck(double angle, bool keepElevation)
-        : angle(angle),
-          keepElevation(keepElevation)
+    elevationCheck::elevationCheck(double angle, bool keepElevation, bool removeElevation)
+        : angle_(angle),
+          keepElevation_(keepElevation),
+          removeElevation_(removeElevation)
     {   
     }
 
@@ -47,7 +48,20 @@ namespace proc_hydrophone
 
     bool elevationCheck::compute()
     {
-        if(elevation_ >= angle)
+        if(removeElevation_)
+        {
+            if(elevation_ >= angle_)
+            {
+                ping.heading = heading_;
+                ping.elevation = M_PI - elevation_;
+                return true;       
+            }
+            else
+            {
+                return false;
+            }
+        }
+        if(elevation_ >= angle_)
         {
             ROS_DEBUG_STREAM("Ping has an elevation over pi/2");
             
@@ -56,7 +70,7 @@ namespace proc_hydrophone
         }
         else
         {
-            if(keepElevation)
+            if(keepElevation_)
             {
                 ROS_DEBUG_STREAM("Keeping ping");
                 ping.heading = heading_;
