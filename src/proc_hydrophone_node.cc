@@ -106,19 +106,19 @@ namespace proc_hydrophone {
             outping.frequency = doa->getFrequency();
             outping.snr = doa->getSnr();
 
-            // pingAnglesPublisher_.publish(outping);
+            pingAnglesPublisher_.publish(outping);
 
-            elevationCheck *check = new elevationCheck(configuration_.getMaxAngle(), configuration_.getAbsoluteElevation());
+            // elevationCheck *check = new elevationCheck(configuration_.getMaxAngle(), configuration_.getAbsoluteElevation());
 
-            check->setValues(outping.heading, outping.elevation, outping.frequency, outping.snr);
+            // check->setValues(outping.heading, outping.elevation, outping.frequency, outping.snr);
 
-            if(check->compute())
-            {
-                secondfilterping = check->getPing();
-                secondfilterping.header = prefilteredPing.front()->header;
-                pingAnglesPublisher_.publish(secondfilterping);
-            }
-            delete check;
+            // if(check->compute())
+            // {
+            //     secondfilterping = check->getPing();
+            //     secondfilterping.header = prefilteredPing.front()->header;
+            //     pingAnglesPublisher_.publish(secondfilterping);
+            // }
+            // delete check;
             delete doa;
         }
     }
