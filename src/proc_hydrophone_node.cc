@@ -44,6 +44,7 @@ namespace proc_hydrophone {
 
         // Publishers
         pingAnglesPrefilteredPublisher_ = nh_->advertise<sonia_common::PingAngles>("/proc_hydrophone/prefilter_ping", 100);
+        pingAnglesElevationFilterPublisher_ = nh_->advertise<sonia_common::PingAngles>("/proc_hydrophone/first_filter_ping", 100);
         pingAnglesPublisher_ = nh_->advertise<sonia_common::PingAngles>("/proc_hydrophone/ping", 100);
 
         // Filtering strategies
@@ -84,6 +85,7 @@ namespace proc_hydrophone {
         std::vector<sonia_common::PingMsgConstPtr> newping;
         sonia_common::PingAngles outping = sonia_common::PingAngles();
         sonia_common::PingAngles secondfilterping = sonia_common::PingAngles();
+        sonia_common::PingAngles thridfilterping = sonia_common::PingAngles();
         
         ROS_DEBUG_STREAM("Pre-Filtering received ping");
 
@@ -117,8 +119,11 @@ namespace proc_hydrophone {
             {
                 secondfilterping = check->getPing();
                 secondfilterping.header = prefilteredPing.front()->header;
-                pingAnglesPublisher_.publish(secondfilterping);
+                pingAnglesElevationFilterPublisher_.publish(secondfilterping);
             }
+
+            
+
             delete check;
             delete doa;
         }

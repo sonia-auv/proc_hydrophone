@@ -33,6 +33,7 @@
 #include "filter_strategy/IFilterStrategy.h"
 #include "algorithm/DOAAlgorithm.h"
 #include "filter_strategy_angles/elevationCheck.h"
+#include "filter_strategy_angles/frontOnly.h"
 
 namespace proc_hydrophone {
 
@@ -54,6 +55,7 @@ class ProcHydrophoneNode {
     ros::NodeHandlePtr nh_;
     ros::Subscriber providerHydrophoneSubscriber_;
     ros::Publisher pingAnglesPublisher_;
+    ros::Publisher pingAnglesElevationFilterPublisher_;
     ros::Publisher pingAnglesPrefilteredPublisher_;
     Configuration configuration_;
 
