@@ -109,7 +109,7 @@ namespace proc_hydrophone {
 
             pingAnglesPrefilteredPublisher_.publish(outping);
 
-            elevationCheck *check = new elevationCheck(configuration_.getMaxAngle(), configuration_.getAbsoluteElevation(), true);
+            elevationCheck *check = new elevationCheck(configuration_.getElevationAngle(), configuration_.getAbsoluteElevation(), true);
 
             check->setValues(outping.heading, outping.elevation, outping.frequency, outping.snr);
 

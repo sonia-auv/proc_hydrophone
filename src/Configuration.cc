@@ -31,7 +31,8 @@ namespace proc_hydrophone
         : nh(nh),
           absoluteElevation(true),
           SNRfilter(10),
-          maxAngle(1.57079632679)
+          maxAngle(1.57079632679),
+          elevationAngle(1.57079632679)
     {
         Deserialize();
     }
@@ -45,6 +46,7 @@ namespace proc_hydrophone
         FindParameter("/algorithm/absoluteElevation", absoluteElevation);
         FindParameter("/filters/SNR", SNRfilter);
         FindParameter("/filters/maxAngle", maxAngle);
+        FindParameter("/filters/elevationAngle", elevationAngle);
 
         ROS_INFO("End deserialize params");
     }
