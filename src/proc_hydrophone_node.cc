@@ -49,7 +49,7 @@ namespace proc_hydrophone {
 
         // Filtering strategies
         std::shared_ptr<IFilterStrategy> snrFilter(new SNRFilter(configuration_.getSNRFilter()));
-        std::shared_ptr<IFilterStrategy> maxAngleDiff(new phaseDiff(configuration_.getMaxAngle()));
+        std::shared_ptr<IFilterStrategy> maxAngleDiff(new phaseDiff(configuration_.getMaxDiffAngle()));
 
         // Add pre-filtering strategies to the filter list
         std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> prefilters(new std::vector<std::shared_ptr<IFilterStrategy>>);
@@ -122,8 +122,18 @@ namespace proc_hydrophone {
                 pingAnglesElevationFilterPublisher_.publish(secondfilterping);
             }
 
-            
+            frontOnly *secondCheck = new frontOnly(configuration_.getMinAngle(), configuration_.getMaxAngle());
 
+            secondCheck->setValues(outping.heading, outping.elevation, outping.frequency, outping.snr);
+
+            if(secondCheck->compute())
+            {
+                thridfilterping = check->getPing();
+                thridfilterping.header = secondfilterping.header;
+                pingAnglesElevationFilterPublisher_.publish(thridfilterping);
+            }
+
+            delete secondCheck;
             delete check;
             delete doa;
         }

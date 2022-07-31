@@ -45,8 +45,10 @@ namespace proc_hydrophone
 
         FindParameter("/algorithm/absoluteElevation", absoluteElevation);
         FindParameter("/filters/SNR", SNRfilter);
-        FindParameter("/filters/maxAngle", maxAngle);
+        FindParameter("/filters/maxDiffAngle", maxDiffAngle);
         FindParameter("/filters/elevationAngle", elevationAngle);
+        FindParameter("/filters/minAngle", minAngle);
+        FindParameter("/filters/maxAngle", maxAngle);
 
         ROS_INFO("End deserialize params");
     }

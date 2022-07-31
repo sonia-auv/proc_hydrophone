@@ -61,27 +61,6 @@ namespace proc_hydrophone
                 return false;
             }
         }
-        // if(elevation_ >= angle_)
-        // {
-        //     ROS_DEBUG_STREAM("Ping has an elevation over pi/2");
-            
-        //     ping.heading = unWrap(heading_ + M_PI);
-        //     ping.elevation = M_PI_2 - (elevation_ - M_PI_2);
-        // }
-        // else
-        // {
-        //     if(keepElevation_)
-        //     {
-        //         ROS_DEBUG_STREAM("Keeping ping");
-        //         ping.heading = heading_;
-        //         ping.elevation = elevation_;
-        //     }
-        //     else
-        //     {
-        //         return false;
-        //     }
-        // }
-        // return true;
     }
 
     bool elevationCheck::resetValues()
