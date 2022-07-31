@@ -112,6 +112,7 @@ namespace proc_hydrophone {
             pingAnglesPrefilteredPublisher_.publish(outping);
 
             elevationCheck *check = new elevationCheck(configuration_.getElevationAngle(), configuration_.getAbsoluteElevation(), true);
+            frontOnly *secondCheck = new frontOnly(configuration_.getMinAngle(), configuration_.getMaxAngle());
 
             check->setValues(outping.heading, outping.elevation, outping.frequency, outping.snr);
 
@@ -120,17 +121,15 @@ namespace proc_hydrophone {
                 secondfilterping = check->getPing();
                 secondfilterping.header = prefilteredPing.front()->header;
                 pingAnglesElevationFilterPublisher_.publish(secondfilterping);
-            }
 
-            frontOnly *secondCheck = new frontOnly(configuration_.getMinAngle(), configuration_.getMaxAngle());
+                secondCheck->setValues(secondfilterping.heading, secondfilterping.elevation, secondfilterping.frequency, secondfilterping.snr);
 
-            secondCheck->setValues(outping.heading, outping.elevation, outping.frequency, outping.snr);
-
-            if(secondCheck->compute())
-            {
-                thridfilterping = check->getPing();
-                thridfilterping.header = secondfilterping.header;
-                pingAnglesElevationFilterPublisher_.publish(thridfilterping);
+                if(secondCheck->compute())
+                {
+                    thridfilterping = check->getPing();
+                    thridfilterping.header = secondfilterping.header;
+                    pingAnglesPublisher_.publish(thridfilterping);
+                }
             }
 
             delete secondCheck;
