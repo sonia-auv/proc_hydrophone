@@ -26,9 +26,9 @@
 
 namespace proc_hydrophone
 {
-    elevationCheck::elevationCheck(double angle, bool keepElevation, bool removeElevation)
+    elevationCheck::elevationCheck(double angle, bool flipElevation, bool removeElevation)
         : angle_(angle),
-          keepElevation_(keepElevation),
+          flipElevation_(flipElevation),
           removeElevation_(removeElevation)
     {   
     }
@@ -53,7 +53,14 @@ namespace proc_hydrophone
             if(elevation_ >= angle_)
             {
                 ping.heading = heading_;
-                ping.elevation = M_PI - elevation_;
+                if(flipElevation_)
+                {
+                    ping.elevation = M_PI_2 - (M_PI - elevation_);
+                }
+                else
+                {
+                   ping.elevation = M_PI - elevation_; 
+                }
                 return true;
             }
             else
@@ -61,6 +68,7 @@ namespace proc_hydrophone
                 return false;
             }
         }
+        return true;
     }
 
     bool elevationCheck::resetValues()
