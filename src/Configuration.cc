@@ -49,7 +49,7 @@ namespace proc_hydrophone
         FindParameter("/filters/SNR", SNRfilter);
         FindParameter("/filters/maxDiffAngle", maxDiffAngle);
         FindParameter("/filters/elevationAngle", elevationAngle);
-        FindParameter("/fliters/flipElevation", flipElevation);
+        FindParameter("/filters/flipElevation", flipElevation);
         FindParameter("/filters/removeElevation", removeElevation);
         FindParameter("/filters/minAngle", minAngle);
         FindParameter("/filters/maxAngle", maxAngle);
