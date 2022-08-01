@@ -29,10 +29,11 @@
 #include <ros/ros.h>
 #include <sonia_common/PingMsg.h>
 #include <sonia_common/PingAngles.h>
-#include "PingHandler.h"
 #include "Configuration.h"
+#include "filter_strategy/IFilterStrategy.h"
 #include "algorithm/DOAAlgorithm.h"
 #include "filter_strategy_angles/elevationCheck.h"
+#include "filter_strategy_angles/frontOnly.h"
 
 namespace proc_hydrophone {
 
@@ -54,6 +55,8 @@ class ProcHydrophoneNode {
     ros::NodeHandlePtr nh_;
     ros::Subscriber providerHydrophoneSubscriber_;
     ros::Publisher pingAnglesPublisher_;
+    ros::Publisher pingAnglesElevationFilterPublisher_;
+    ros::Publisher pingAnglesPrefilteredPublisher_;
     Configuration configuration_;
 
     void PingCallback(const sonia_common::PingMsgConstPtr &ping);

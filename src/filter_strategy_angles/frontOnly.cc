@@ -1,5 +1,5 @@
 /**
- * \file	elevationCheck.cc
+ * \file	frontOnly.cc
  * \author	Francis Alonzo <francisalonzo@gmail.com>
  * \date	23/07/2022
  *
@@ -22,23 +22,22 @@
  * You should have received a copy of the GNU General Public License
  * along with S.O.N.I.A. software. If not, see <http://www.gnu.org/licenses/>.
  */
-#include "elevationCheck.h"
+#include "frontOnly.h"
 
 namespace proc_hydrophone
 {
-    elevationCheck::elevationCheck(double angle, bool keepElevation, bool removeElevation)
-        : angle_(angle),
-          keepElevation_(keepElevation),
-          removeElevation_(removeElevation)
+    frontOnly::frontOnly(double minangle, double maxangle)
+        : minAngle_(minangle),
+          maxAngle_(maxangle)
     {   
     }
 
-    elevationCheck::~elevationCheck()
+    frontOnly::~frontOnly()
     {
 
     }
 
-    void elevationCheck::setValues(double_t heading, double_t elevation, double_t frequency, uint16_t snr)
+    void frontOnly::setValues(double_t heading, double_t elevation, double_t frequency, uint16_t snr)
     {
         heading_ = heading;
         elevation_ = elevation;
@@ -46,24 +45,21 @@ namespace proc_hydrophone
         ping.snr = snr;
     }
 
-    bool elevationCheck::compute()
+    bool frontOnly::compute()
     {
-        if(removeElevation_)
+        if(heading_ >= minAngle_ && heading_ <= maxAngle_)
         {
-            if(elevation_ >= angle_)
-            {
-                ping.heading = heading_;
-                ping.elevation = M_PI - elevation_;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            ping.heading = heading_;
+            ping.elevation = elevation_;
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
-    bool elevationCheck::resetValues()
+    bool frontOnly::resetValues()
     {
         heading_ = 0;
         elevation_ = 0;
@@ -72,20 +68,5 @@ namespace proc_hydrophone
         ping.heading = 0;
         ping.elevation = 0;
         return true;
-    }
-
-    double_t elevationCheck::unWrap(double_t angle)
-    {
-        double_t new_angle = angle;
-
-        if(angle > M_PI)
-        {
-            new_angle -= 2 * M_PI;
-        }
-        if(angle < -M_PI)
-        {
-            new_angle += 2 * M_PI;
-        }
-        return new_angle;
     }
 }

@@ -43,11 +43,13 @@ namespace proc_hydrophone {
         providerHydrophoneSubscriber_ = nh_->subscribe("/provider_hydrophone/ping", 100, &ProcHydrophoneNode::PingCallback, this);
 
         // Publishers
+        pingAnglesPrefilteredPublisher_ = nh_->advertise<sonia_common::PingAngles>("/proc_hydrophone/prefilter_ping", 100);
+        pingAnglesElevationFilterPublisher_ = nh_->advertise<sonia_common::PingAngles>("/proc_hydrophone/first_filter_ping", 100);
         pingAnglesPublisher_ = nh_->advertise<sonia_common::PingAngles>("/proc_hydrophone/ping", 100);
 
         // Filtering strategies
         std::shared_ptr<IFilterStrategy> snrFilter(new SNRFilter(configuration_.getSNRFilter()));
-        std::shared_ptr<IFilterStrategy> maxAngleDiff(new phaseDiff(configuration_.getMaxAngle()));
+        std::shared_ptr<IFilterStrategy> maxAngleDiff(new phaseDiff(configuration_.getMaxDiffAngle()));
 
         // Add pre-filtering strategies to the filter list
         std::shared_ptr<std::vector<std::shared_ptr<IFilterStrategy>>> prefilters(new std::vector<std::shared_ptr<IFilterStrategy>>);
@@ -83,6 +85,7 @@ namespace proc_hydrophone {
         std::vector<sonia_common::PingMsgConstPtr> newping;
         sonia_common::PingAngles outping = sonia_common::PingAngles();
         sonia_common::PingAngles secondfilterping = sonia_common::PingAngles();
+        sonia_common::PingAngles thridfilterping = sonia_common::PingAngles();
         
         ROS_DEBUG_STREAM("Pre-Filtering received ping");
 
@@ -106,9 +109,10 @@ namespace proc_hydrophone {
             outping.frequency = doa->getFrequency();
             outping.snr = doa->getSnr();
 
-            // pingAnglesPublisher_.publish(outping);
+            pingAnglesPrefilteredPublisher_.publish(outping);
 
-            elevationCheck *check = new elevationCheck(configuration_.getMaxAngle(), configuration_.getAbsoluteElevation());
+            elevationCheck *check = new elevationCheck(configuration_.getElevationAngle(), configuration_.getAbsoluteElevation(), true);
+            frontOnly *secondCheck = new frontOnly(configuration_.getMinAngle(), configuration_.getMaxAngle());
 
             check->setValues(outping.heading, outping.elevation, outping.frequency, outping.snr);
 
@@ -116,8 +120,19 @@ namespace proc_hydrophone {
             {
                 secondfilterping = check->getPing();
                 secondfilterping.header = prefilteredPing.front()->header;
-                pingAnglesPublisher_.publish(secondfilterping);
+                pingAnglesElevationFilterPublisher_.publish(secondfilterping);
+
+                secondCheck->setValues(secondfilterping.heading, secondfilterping.elevation, secondfilterping.frequency, secondfilterping.snr);
+
+                if(secondCheck->compute())
+                {
+                    thridfilterping = check->getPing();
+                    thridfilterping.header = secondfilterping.header;
+                    pingAnglesPublisher_.publish(thridfilterping);
+                }
             }
+
+            delete secondCheck;
             delete check;
             delete doa;
         }

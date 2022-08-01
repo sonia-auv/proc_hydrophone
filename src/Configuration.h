@@ -41,6 +41,9 @@ namespace proc_hydrophone
 
         bool getAbsoluteElevation() const {return absoluteElevation;}
         int getSNRFilter() const {return SNRfilter;}
+        double getMaxDiffAngle() const {return maxDiffAngle;}
+        double getElevationAngle() const {return elevationAngle;}
+        double getMinAngle() const {return minAngle;}
         double getMaxAngle() const {return maxAngle;}
 
     private:
@@ -49,6 +52,9 @@ namespace proc_hydrophone
 
         bool absoluteElevation;
         int SNRfilter;
+        double maxDiffAngle;
+        double elevationAngle;
+        double minAngle;
         double maxAngle;
 
         void Deserialize();

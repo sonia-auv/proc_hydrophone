@@ -1,5 +1,5 @@
 /**
- * \file	elevationCheck.h
+ * \file	frontOnly.h
  * \author	Francis Alonzo <francisalonzo@gmail.com>
  * \date	23/072022
  *
@@ -23,8 +23,8 @@
  * along with S.O.N.I.A. software. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROC_HYDROPHONE_ELEVATIONCHECK_H
-#define PROC_HYDROPHONE_ELEVATIONCHECK_H
+#ifndef PROC_HYDROPHONE_FRONTONLY_H
+#define PROC_HYDROPHONE_FRONTONLY_H
 
 #include <sonia_common/PingAngles.h>
 #include <ros/ros.h>
@@ -32,13 +32,13 @@
 
 namespace proc_hydrophone
 {
-    class elevationCheck
+    class frontOnly
     {
     //==========================================================================
     // P U B L I C   C / D T O R S
     public:
-        elevationCheck(double angle, bool keepElevation, bool removeElevation);
-        ~elevationCheck();
+        frontOnly(double minangle, double maxangle);
+        ~frontOnly();
 
         void setValues(double_t heading, double_t elevation, double_t frequency, uint16_t snr);
         bool compute();
@@ -48,9 +48,8 @@ namespace proc_hydrophone
 
     private:
 
-        double_t angle_;
-        bool keepElevation_;
-        bool removeElevation_;
+        double_t minAngle_;
+        double_t maxAngle_;
 
         double_t heading_;
         double_t elevation_;
@@ -58,8 +57,6 @@ namespace proc_hydrophone
         uint16_t snr_;
 
         sonia_common::PingAngles ping;
-
-        double_t unWrap(double_t angle);
     };
 
 }
