@@ -43,6 +43,8 @@ namespace proc_hydrophone
         int getSNRFilter() const {return SNRfilter;}
         double getMaxDiffAngle() const {return maxDiffAngle;}
         double getElevationAngle() const {return elevationAngle;}
+        bool getFlipElevation() const {return flipElevation;}
+        bool getRemoveElevation() const {return removeElevation;}
         double getMinAngle() const {return minAngle;}
         double getMaxAngle() const {return maxAngle;}
 
@@ -54,6 +56,8 @@ namespace proc_hydrophone
         int SNRfilter;
         double maxDiffAngle;
         double elevationAngle;
+        bool flipElevation;
+        bool removeElevation;
         double minAngle;
         double maxAngle;
 

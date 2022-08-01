@@ -30,8 +30,10 @@ namespace proc_hydrophone
     Configuration::Configuration(const ros::NodeHandlePtr &nh)
         : nh(nh),
           absoluteElevation(true),
+          flipElevation(false),
+          removeElevation(true),
           SNRfilter(10),
-          maxAngle(1.57079632679),
+          maxDiffAngle(1.57079632679),
           elevationAngle(1.57079632679)
     {
         Deserialize();
@@ -47,6 +49,8 @@ namespace proc_hydrophone
         FindParameter("/filters/SNR", SNRfilter);
         FindParameter("/filters/maxDiffAngle", maxDiffAngle);
         FindParameter("/filters/elevationAngle", elevationAngle);
+        FindParameter("/fliters/flipElevation", flipElevation);
+        FindParameter("/filters/removeElevation", removeElevation);
         FindParameter("/filters/minAngle", minAngle);
         FindParameter("/filters/maxAngle", maxAngle);
 
