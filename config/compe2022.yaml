@@ -8,7 +8,7 @@
 /proc_hydrophone/filters/maxDiffAngle : 10
 /proc_hydrophone/filters/elevationAngle : 1.57079632679
 /proc_hydrophone/filters/flipElevation : false
-/proc_hydrophone/filters/removeElevation : true
+/proc_hydrophone/filters/removeElevation : false
 #/proc_hydrophone/filters/minAngle : -5
 #/proc_hydrophone/filters/maxAngle : 5
 /proc_hydrophone/filters/minAngle : -2.0944
