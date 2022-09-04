@@ -5,8 +5,9 @@
 #ifndef PROC_HYDROPHONE_IFILTERSTRATEGY_H
 #define PROC_HYDROPHONE_IFILTERSTRATEGY_H
 
-#include <geometry_msgs/Quaternion.h>
 #include <sonia_common/PingMsg.h>
+#include <ros/ros.h>
+#include <math.h>
 
 namespace proc_hydrophone
 {

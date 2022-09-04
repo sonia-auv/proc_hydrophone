@@ -26,50 +26,40 @@
 #ifndef PROC_HYDROPHONE_PROC_HYDROPHONE_NODE_H_
 #define PROC_HYDROPHONE_PROC_HYDROPHONE_NODE_H_
 
-#include <ros/node_handle.h>
-#include <nav_msgs/Odometry.h>
+#include <ros/ros.h>
 #include <sonia_common/PingMsg.h>
-#include <proc_hydrophone/PingHandler.h>
-#include <proc_hydrophone/Configuration.h>
+#include <sonia_common/PingAngles.h>
+#include "Configuration.h"
+#include "filter_strategy/IFilterStrategy.h"
+#include "algorithm/DOAAlgorithm.h"
+#include "filter_strategy_angles/elevationCheck.h"
+#include "filter_strategy_angles/frontOnly.h"
 
 namespace proc_hydrophone {
 
 class ProcHydrophoneNode {
- public:
-  //==========================================================================
-  // T Y P E D E F   A N D   E N U M
+  public:
+    //==========================================================================
+    // T Y P E D E F   A N D   E N U M
 
-  //==========================================================================
-  // P U B L I C   C / D T O R S
+    //==========================================================================
+    // P U B L I C   C / D T O R S
 
-  explicit ProcHydrophoneNode(const ros::NodeHandlePtr &nh);
+    explicit ProcHydrophoneNode(const ros::NodeHandlePtr &nh);
+    ~ProcHydrophoneNode();
 
-  ~ProcHydrophoneNode();
+    void Spin();
 
-  /// Taking care of the spinning of the ROS thread.
-  /// Each iteration of the loop, this will take the objects in the object
-  /// registery, empty it and publish the objects.
-  void Spin();
-
-private:
-
+  private:
+    std::shared_ptr<IFilterStrategy> prefilterStrategy_;
     ros::NodeHandlePtr nh_;
-    std::shared_ptr<Configuration> configuration;
+    ros::Subscriber providerHydrophoneSubscriber_;
+    ros::Publisher pingAnglesPublisher_;
+    ros::Publisher pingAnglesElevationFilterPublisher_;
+    ros::Publisher pingAnglesPrefilteredPublisher_;
+    Configuration configuration_;
 
-    ros::Subscriber odomSubscriber;
-    ros::Subscriber providerHydrophoneSubscriber;
-    ros::Publisher pingPosePublisher;
-
-    void OdomCallback(const nav_msgs::OdometryConstPtr &odom);
     void PingCallback(const sonia_common::PingMsgConstPtr &ping);
-
-    std::shared_ptr<PingHandler> ping25kHzHandler_;
-    std::shared_ptr<PingHandler> ping30kHzHandler_;
-    std::shared_ptr<PingHandler> ping35kHzHandler_;
-    std::shared_ptr<PingHandler> ping40kHzHandler_;
-
-
-
 };
 
 }  // namespace proc_hydrophone
